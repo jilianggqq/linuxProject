@@ -97,7 +97,7 @@ function justifyNameLength(name, max_length) {
 function vitualIntroduce(rect, type, id) {
 	if (type == 1) {
 		var configId = id.slice(2);
-		var url = '../kernel/configinfo.php?jsoncallback=?';
+		var url = 'kernel/configinfo.php?jsoncallback=?';
 		//!!TODO 改参数
 		$.getJSON(url, {
 			"time" : (new Date()).getTime(),
@@ -671,6 +671,7 @@ function openChild(openId) {
 	$("#selectDig2").dialog("close");
 }
 function showSelectDialog(obj) {
+	console.log("showSelectDialog");
 	var container = $("#center");
 	var x = obj.attr("x");
 	var y = obj.attr("y"); //-obj.attr("height");

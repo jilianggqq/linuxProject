@@ -52,7 +52,7 @@ function page(obj){
 /**
 *初始化区域的宽度
 */
-region.prototype.initWidth = function(){
+region.prototype.initWidth = function() {
 	var direction = this.rect.data("direction");
 	if(direction == "horizontal"){
 		this.width = section*this.rect.attr("height")+(section-1)*regionSpaceWidth;
@@ -145,8 +145,9 @@ region.prototype.init = function(){
 	$.ajaxSettings.async = false;
 	if(that.type==types[0]){//虚拟目录
 //		url='clickvirdir_test-new.json';
-		url='../kernel/virdir.php?jsoncallback=?';
+		url='kernel/virdir.php?jsoncallback=?';
 		this.pid = this.pid.slice(2); 
+		console.log("url:"+url);
 		$.getJSON(url, { "time": (new Date()).getTime(),"VirDirID": this.pid, "arch": current_arch }, function(data) {
 		
 			if(data == null || data == "NULL" || data == ""){
@@ -180,7 +181,7 @@ region.prototype.init = function(){
 	        regionSet(that);
 		});	
 	}else if(that.type==types[1]){//编译选项
-		url = '../kernel/module.php?jsoncallback=?';
+		url = 'kernel/module.php?jsoncallback=?';
 		this.parid = this.rect.data("m").parentId.slice(2);
 		this.pid = this.pid.slice(2); 
 
@@ -214,7 +215,7 @@ region.prototype.init = function(){
 			url ="";//结构体
 		}else if(that.fortype==types[5]){// 变量
 			this.pid = this.pid.slice(2); 
-			url = '../kernel/type.php?jsoncallback=?';
+			url = 'kernel/type.php?jsoncallback=?';
 			$.getJSON(url, { "time": (new Date()).getTime(),"TypeID": this.pid, "arch": current_arch }, function(data) {
 				var eles = data.modules;
 				if(eles){
@@ -244,7 +245,7 @@ region.prototype.init = function(){
 			});	
 		}else{
 //			url ='clickfiletest.json';
-			url = '../kernel/file.php?jsoncallback=?';
+			url = 'kernel/file.php?jsoncallback=?';
 			this.pid = this.pid.slice(2); 
 			$.getJSON(url, { "time": (new Date()).getTime(),"FileID": this.pid, "arch": current_arch }, function(data) {
 				var eles = data.modules;
@@ -278,7 +279,7 @@ region.prototype.init = function(){
 	}else if(that.type==types[3]){// 函数
 //		url='clickfunctiontest.json';
 		this.pid = this.pid.slice(2); 
-		url = '../kernel/function.php?jsoncallback=?';
+		url = 'kernel/function.php?jsoncallback=?';
 		$.getJSON(url, { "time": (new Date()).getTime(),"FuncID": this.pid, "arch": current_arch }, function(data) {
 			var eles = data.modules;
 			if(eles){
@@ -309,7 +310,7 @@ region.prototype.init = function(){
 	}else if(that.type==types[5]){//变量
 		//		url='clickfunctiontest.json';
 		this.pid = this.pid.slice(2); 
-		url = '../kernel/type.php?jsoncallback=?';
+		url = 'kernel/type.php?jsoncallback=?';
 		$.getJSON(url, { "time": (new Date()).getTime(),"TypeID": this.pid, "arch": current_arch }, function(data) {
 			var eles = data.modules;
 			if(eles){
