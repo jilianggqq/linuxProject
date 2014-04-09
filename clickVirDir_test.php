@@ -1,0 +1,4 @@
+<?php
+//???????
+echo '{"Modules":[{"ID":408,"Name":"SOC_AT91SAM9263","LogicRelation":"SOC_AT91SAM9"},{"ID":408,"Name":"SOC_AT91SAM9263","LogicRelation":"SOC_AT91SAM9"},{"ID":408,"Name":"SOC_AT91SAM9263","LogicRelation":"HAVE_AT91_DBGU1"},{"ID":408,"Name":"SOC_AT91SAM9263","LogicRelation":"HAVE_AT91_DBGU1"},{"ID":408,"Name":"SOC_AT91SAM9263","LogicRelation":"HAVE_FB_ATMEL"},{"ID":408,"Name":"SOC_AT91SAM9263","LogicRelation":"HAVE_FB_ATMEL"},{"ID":408,"Name":"SOC_AT91SAM9263","LogicRelation":"HAVE_NET_MACB"},{"ID":408,"Name":"SOC_AT91SAM9263","LogicRelation":"HAVE_NET_MACB"}],"Relations":[{"From":408,"To":"SOC_AT91SAM9"},{"From":408,"To":"SOC_AT91SAM9"},{"From":408,"To":"HAVE_AT91_DBGU1"},{"From":408,"To":"HAVE_AT91_DBGU1"},{"From":408,"To":"HAVE_FB_ATMEL"},{"From":408,"To":"HAVE_FB_ATMEL"},{"From":408,"To":"HAVE_NET_MACB"},{"From":408,"To":"HAVE_NET_MACB"}]}'
+?>

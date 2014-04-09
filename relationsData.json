@@ -1,0 +1,6 @@
+{"modules":[{"id":-830,"name":"\/arch\/x86\/lib\/insn.c","type":1},
+{"id":-831,"name":"/arch\/x86\/lib\/inat.c","type":2},
+{"id":-832,"name":"/arch\/x86\/lib\/msr.c","type":2},
+{"id":-833,"name":"\/arch\/x86\/lib\/msr-reg-export.c","type":3}],
+"relations":[{"from":-832,"logicrelation":"NULL","to":"-409"},{"from":-830,"logicrelation":"NULL","to":"-409"},{"from":-833,"logicrelation":"NULL","to":"-409"},
+{"from":-831,"logicrelation":"KPROBES && HAVE_KRETPROBES","to":"-409"}]}

@@ -1,0 +1,4 @@
+{"modules":
+[{"id":30000005,"name":"\/\u5185\u5b58\/mmu\/SPARSEMEM","description":"functionname:strncat,filename:\/arch\/x86\/lib\/string_32.c,modulename:X86_32,virtualname:\/\u5185\u5b58\/mmu\/mmu_notifier.c"},
+{"id":30000013,"name":"\/\u5185\u5b58\/mmu\/SPARSEMEM_ALLOC_MEM_MAP_TOGETHE","description":"functionname:strncat,filename:\/arch\/x86\/lib\/string_32.c,modulename:X86_32,virtualname:\/\u5185\u5b58\/mmu\/mmu_notifier.c"}]
+}

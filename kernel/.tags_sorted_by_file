@@ -1,0 +1,280 @@
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_PROGRAM_VERSION	5.8	//
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+con	analysis.php	/^	$con = mysql_connect($db_host,$db_username,$db_password);$/;"	v
+currentArch	analysis.php	/^	$currentArch = $_GET['arch'];$/;"	v
+id	analysis.php	/^	$id = $_GET['id'];$/;"	v
+id	analysis.php	/^	if ($type == 0 and $id == 19){$/;"	v
+select	analysis.php	/^		$select = mysql_select_db($arm_db,$con);$/;"	v
+select	analysis.php	/^		$select = mysql_select_db($x86_db,$con);$/;"	v
+sql	analysis.php	/^		$sql = "SELECT annourl FROM filename WHERE filename.id = $id";$/;"	v
+sql	analysis.php	/^		$sql = "SELECT annourl FROM functioninfo WHERE functioninfo.id = $id";$/;"	v
+sql	analysis.php	/^		$sql = "SELECT annourl FROM typeinfo WHERE typeinfo.id = $id";$/;"	v
+sql	analysis.php	/^		$sql = "SELECT$/;"	v
+sql	analysis.php	/^	$sql = '';$/;"	v
+targer	analysis.php	/^	$targer = "该文档正在完善中.";$/;"	v
+target	analysis.php	/^		$target = "http:\/\/124.16.141.171:81\/mediawiki-dm\/index.php\/%E5%88%86%E7%B1%BB:Linux%E5%86%85%E6%A0%B8%E5%88%86%E6%9E%90--%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86--%E7%94%B5%E6%BA%90%E7%AE%A1%E7%90%86";$/;"	v
+type	analysis.php	/^	$type =$_GET['type'];$/;"	v
+con	annourl.php	/^	$con = mysql_connect($db_host,$db_username,$db_password);$/;"	v
+currentArch	annourl.php	/^	$currentArch = $_GET['arch'];$/;"	v
+id	annourl.php	/^	$id = $_GET['id'];$/;"	v
+rs	annourl.php	/^	$rs = mysql_query($sql, $con);$/;"	v
+select	annourl.php	/^		$select = mysql_select_db($arm_db,$con);$/;"	v
+select	annourl.php	/^		$select = mysql_select_db($x86_db,$con);$/;"	v
+sql	annourl.php	/^		$sql = "SELECT annourl FROM filename WHERE filename.id = $id";$/;"	v
+sql	annourl.php	/^		$sql = "SELECT annourl FROM functioninfo WHERE functioninfo.id = $id";$/;"	v
+sql	annourl.php	/^		$sql = "SELECT annourl FROM typeinfo WHERE typeinfo.id = $id";$/;"	v
+sql	annourl.php	/^		$sql = "SELECT$/;"	v
+sql	annourl.php	/^	$sql = '';$/;"	v
+sql	annourl.php	/^	\/\/ $sql = "SELECT * From filename LIMIT 0,30";$/;"	v
+target	annourl.php	/^			$target = $row[0];$/;"	v
+target	annourl.php	/^		$target = "http:\/\/124.16.141.171:81\/mediawiki\/index.php\/".$target;$/;"	v
+target	annourl.php	/^	\/\/ if ( $target == null || !startsWith($target,"http:\/\/")) {$/;"	v
+type	annourl.php	/^	$type =$_GET['type'];$/;"	v
+arm_db	config.php	/^$arm_db = "linuxkernel_arm";$/;"	v
+db_host	config.php	/^$db_host = "localhost:3306";$/;"	v
+db_password	config.php	/^$db_password = "gqq";$/;"	v
+db_username	config.php	/^$db_username = "root";$/;"	v
+x86_db	config.php	/^$x86_db = "linuxkernel_x86_gqq";$/;"	v
+ConfigID	configinfo.php	/^        $ConfigID = $_GET["ConfigID"];$/;"	v
+ConfigInfo	configinfo.php	/^    function ConfigInfo($link){$/;"	f
+callback	configinfo.php	/^        $callback = $_GET['jsoncallback'];      $/;"	v
+currentArch	configinfo.php	/^    $currentArch = $_GET['arch'];$/;"	v
+i	configinfo.php	/^            $i = $menu_data[1];$/;"	v
+i	configinfo.php	/^           $i = $row[1];$/;"	v
+jsonArray	configinfo.php	/^        $jsonArray = array();$/;"	v
+link	configinfo.php	/^    $link = mysql_connect($db_host,$db_username,$db_password);$/;"	v
+menu_data	configinfo.php	/^            $menu_data = mysql_fetch_row($menu_result);$/;"	v
+menu_query	configinfo.php	/^            $menu_query = "SELECT ModuleName,ParentNodeId FROM module WHERE Id=$i";$/;"	v
+menu_result	configinfo.php	/^            $menu_result = mysql_query($menu_query,$link);$/;"	v
+q	configinfo.php	/^        $q ="SELECT info,ParentNodeId FROM module WHERE Id=$ConfigID";$/;"	v
+row	configinfo.php	/^           $row = mysql_fetch_row($rs);$/;"	v
+rs	configinfo.php	/^        $rs = mysql_query($q, $link);$/;"	v
+FileID	file.php	/^		$FileID = $_GET["FileID"];		\/\/从前台取值,接口是FileID$/;"	v
+callback	file.php	/^		$callback = $_GET['jsoncallback'];	$/;"	v
+currentArch	file.php	/^	$currentArch = $_GET['arch'];$/;"	v
+funcArray	file.php	/^		$funcArray = array();$/;"	v
+i_max	file.php	/^		$i_max = count($jsonArray["modules"]);$/;"	v
+i_max	file.php	/^		$i_max = count($tmpmdArray);$/;"	v
+jsonArray	file.php	/^		$jsonArray = array();$/;"	v
+link	file.php	/^	$link = mysql_connect($db_host,$db_username,$db_password);$/;"	v
+mutualByFileID	file.php	/^	function mutualByFileID($link){$/;"	f
+q	file.php	/^		$q = "SELECT Id, FunctionName, annourl, FunctionType FROM functioninfo WHERE FileNameId = $FileID AND FunctionType != 2 ORDER BY weight DESC";	\/\/取得函数列表的数据集$/;"	v
+q8	file.php	/^			$q8 = "SELECT functioncall.CalleeId, filename.id,filename.moduleId,virtualpathtomodules.virtualDirId,functioncall.Conditions FROM functioncall,functioninfo,filename,virtualpathtomodules WHERE functioncall.CallerId =$vid AND virtualpathtomodules.moduleId = filename.moduleId AND functioninfo.Id = CalleeId AND functioninfo.FileNameId = filename.id";$/;"	v
+q9	file.php	/^			$q9 = "SELECT functioncall.CallerId, filename.id,filename.moduleId,virtualpathtomodules.virtualDirId,functioncall.Conditions FROM functioncall,functioninfo,filename,virtualpathtomodules WHERE functioncall.CalleeId =$vid AND virtualpathtomodules.moduleId = filename.moduleId AND functioninfo.Id = CallerId AND functioninfo.FileNameId = filename.id";$/;"	v
+rs	file.php	/^		$rs = mysql_query($q, $link);$/;"	v
+rs_tmp	file.php	/^			$rs_tmp = @mysql_query($q8, $link);			\/\/可使用functionspec表$/;"	v
+rs_tmp	file.php	/^			$rs_tmp = @mysql_query($q9, $link);			\/\/可使用functionspec表$/;"	v
+tmp_array	file.php	/^			$tmp_array = array();$/;"	v
+tmp_array2	file.php	/^		$tmp_array2 = array();$/;"	v
+tmpmdArray	file.php	/^		$tmpmdArray = array();$/;"	v
+vid	file.php	/^			$vid  = $jsonArray["modules"][$i]["id"];$/;"	v
+vid	file.php	/^			$vid = substr($vid,2,strlen($vid));$/;"	v
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+creat_json_file	init.php	/^	function creat_json_file($filepath,$filedata){$/;"	f
+currentArch	init.php	/^	$currentArch = trim(fgets(STDIN));$/;"	v
+file_pointer	init.php	/^		$file_pointer = fopen($filename, "w"); $/;"	v
+filename	init.php	/^		$filename = $filepath;$/;"	v
+initIndexMap	init.php	/^	function initIndexMap($link,$outputFile){$/;"	f
+jsonArray	init.php	/^		$jsonArray = array();$/;"	v
+levelArray0	init.php	/^		$levelArray0 = array();$/;"	v
+levelArray1	init.php	/^		$levelArray1 = array();$/;"	v
+levelArray2	init.php	/^		$levelArray2 = array();$/;"	v
+link	init.php	/^	$link = mysql_connect($db_host,$db_username,$db_password);$/;"	v
+outputFile	init.php	/^	$outputFile = trim(fgets(STDIN));$/;"	v
+q	init.php	/^		$q = "SELECT * FROM basevirtualdirectory";$/;"	v
+q	init.php	/^		$q = "SELECT * FROM basevirtualrelation";$/;"	v
+relationsArray	init.php	/^		$relationsArray = array();$/;"	v
+rs	init.php	/^		$rs = mysql_query($q , $link);$/;"	v
+tmpArray	init.php	/^		$tmpArray = array();$/;"	v
+TsinghuaType	lxrForward.php	/^$TsinghuaType = $_GET['tsinghuaType'];$/;"	v
+all	lxrForward.php	/^   $all = substr($all,$indexof+ strlen($part));$/;"	v
+con	lxrForward.php	/^$con = mysql_connect($db_host,$db_username,$db_password);$/;"	v
+currentArch	lxrForward.php	/^  $currentArch = "arm-RaspberryPI";$/;"	v
+currentArch	lxrForward.php	/^  $currentArch = "x86";$/;"	v
+currentArch	lxrForward.php	/^  $currentArch = "x86_32";$/;"	v
+currentArch	lxrForward.php	/^$currentArch = $_GET['arch'];$/;"	v
+currentDir	lxrForward.php	/^      $currentDir = "virtual";$/;"	v
+currentDir	lxrForward.php	/^  $currentDir = "virtual";$/;"	v
+currentDir	lxrForward.php	/^$currentDir = "real";$/;"	v
+fromId	lxrForward.php	/^$fromId = $_GET['fromId'];$/;"	v
+fromPath	lxrForward.php	/^        $fromPath = $row[0] . "\/" . $fromPath;$/;"	v
+fromPath	lxrForward.php	/^      $fromPath = $row[0];$/;"	v
+fromPath	lxrForward.php	/^     $fromPath = $row[0];$/;"	v
+fromPath	lxrForward.php	/^     if ( $fromPath == $toPath) {$/;"	v
+fromPath	lxrForward.php	/^    $fromPath = "";$/;"	v
+fromPath	lxrForward.php	/^    $fromPath = substr($fromPath, 0, lastindexof($fromPath, "\/"));$/;"	v
+fromPath	lxrForward.php	/^    $fromPath = substr($fromPath, 0, strlen($fromPath) - 19);$/;"	v
+fromPath	lxrForward.php	/^    $fromPath = substr($fromPath, 1);$/;"	v
+fromPath	lxrForward.php	/^    $fromPath = substr($fromPath, 46); \/\/ len(http:\/\/124.16.141.171:81\/mediawiki\/index.php\/) = 44$/;"	v
+fromPath	lxrForward.php	/^$fromPath="*";$/;"	v
+fromType	lxrForward.php	/^  } else if ($fromType == 1 || $fromType == 2) {$/;"	v
+fromType	lxrForward.php	/^$fromType = $_GET['fromType'];$/;"	v
+fromType	lxrForward.php	/^if ($fromType == 3 || $fromType == 5){$/;"	v
+indexof	lxrForward.php	/^   $indexof = strpos($all,$part);$/;"	v
+lastindexof	lxrForward.php	/^   $lastindexof = $lastindexof + $indexof + $offset;$/;"	v
+lastindexof	lxrForward.php	/^function lastindexof($all,$part){$/;"	f
+offset	lxrForward.php	/^   $offset = strlen($part);$/;"	v
+pid	lxrForward.php	/^            $pid = $row[1];$/;"	v
+pid	lxrForward.php	/^          $pid = $row[1];$/;"	v
+pid	lxrForward.php	/^        $pid = $row[1];$/;"	v
+pid	lxrForward.php	/^        $pid = -1;$/;"	v
+pid	lxrForward.php	/^      $pid = $row[1];$/;"	v
+pid	lxrForward.php	/^    $pid = -1;$/;"	v
+prefix_call	lxrForward.php	/^$prefix_call = "http:\/\/124.16.141.130\/lxr\/call?";$/;"	v
+prefix_taintrace	lxrForward.php	/^$prefix_taintrace ="http:\/\/124.16.141.130\/lxr\/taintrace?";$/;"	v
+prefix_watchlist	lxrForward.php	/^$prefix_watchlist = "http:\/\/124.16.141.130\/lxr\/watchlist?";$/;"	v
+rs	lxrForward.php	/^           $rs = mysql_query($sql, $con);$/;"	v
+rs	lxrForward.php	/^       $rs = mysql_query($sql, $con);$/;"	v
+rs	lxrForward.php	/^     $rs = mysql_query($sql, $con);$/;"	v
+rs	lxrForward.php	/^$rs = mysql_query($sql, $con);$/;"	v
+select	lxrForward.php	/^  $select = mysql_select_db($arm_db,$con);$/;"	v
+select	lxrForward.php	/^  $select = mysql_select_db($x86_db,$con);$/;"	v
+sql	lxrForward.php	/^          $sql = "SELECT $/;"	v
+sql	lxrForward.php	/^      $sql = "SELECT $/;"	v
+sql	lxrForward.php	/^    $sql = "SELECT annourl FROM functioninfo WHERE functioninfo.id = $toId";$/;"	v
+sql	lxrForward.php	/^    $sql = "SELECT annourl FROM typeinfo WHERE typeinfo.id = $toId";$/;"	v
+sql	lxrForward.php	/^    $sql = "SELECT fileName FROM filename WHERE filename.id = $toId";$/;"	v
+sql	lxrForward.php	/^    $sql = "SELECT$/;"	v
+sql	lxrForward.php	/^  $sql = "SELECT $/;"	v
+sql	lxrForward.php	/^  $sql = "SELECT annourl FROM functioninfo WHERE functioninfo.id = $fromId";$/;"	v
+sql	lxrForward.php	/^  $sql = "SELECT annourl FROM typeinfo WHERE typeinfo.id = $fromId";$/;"	v
+sql	lxrForward.php	/^  $sql = "SELECT fileName FROM filename WHERE filename.id = $fromId";$/;"	v
+sql	lxrForward.php	/^  $sql = "SELECT$/;"	v
+sql	lxrForward.php	/^  \/\/ $sql = "SELECT * From filename LIMIT 0,30";$/;"	v
+sql	lxrForward.php	/^$sql = '';$/;"	v
+target	lxrForward.php	/^     $target = $prefix_taintrace . "v=linux-3.5.4&f=". $currentDir ."&a=" . $currentArch . "&path0=" . $fromPath . "&path1=" . $toPath."&depth=5";$/;"	v
+target	lxrForward.php	/^    $target = $prefix_call . "v=linux-3.5.4&f=". $currentDir ."&a=" . $currentArch . "&path0=" . $fromPath . "&path1=" . $toPath;$/;"	v
+target	lxrForward.php	/^    $target = $prefix_watchlist . "v=linux-3.5.4&f=". $currentDir ."&a=" . $currentArch . "&path0=" . $fromPath . "&path1=" . $toPath;$/;"	v
+toId	lxrForward.php	/^$toId = $_GET['toId'];$/;"	v
+toPath	lxrForward.php	/^            $toPath = $row[0] . "\/" . $toPath;$/;"	v
+toPath	lxrForward.php	/^            $toPath = $row[0];$/;"	v
+toPath	lxrForward.php	/^          $toPath = $row[0];$/;"	v
+toPath	lxrForward.php	/^        $toPath = "";$/;"	v
+toPath	lxrForward.php	/^        $toPath = substr($toPath, 0, strlen($toPath) - 19);$/;"	v
+toPath	lxrForward.php	/^        $toPath = substr($toPath, 1);$/;"	v
+toPath	lxrForward.php	/^        $toPath = substr($toPath, 46); \/\/ len(http:\/\/124.16.141.171:81\/mediawiki\/index.php\/) = 44$/;"	v
+toPath	lxrForward.php	/^      $toPath = "";$/;"	v
+toPath	lxrForward.php	/^    $toPath = "";$/;"	v
+toPath	lxrForward.php	/^    $toPath = substr($toPath, 0, lastindexof($toPath, "\/"));$/;"	v
+toPath	lxrForward.php	/^    $toPath="*";$/;"	v
+toType	lxrForward.php	/^    if ($toType == 3 || $toType == 5){$/;"	v
+toType	lxrForward.php	/^    } else if ($toType == 1 || $toType == 2) {$/;"	v
+toType	lxrForward.php	/^$toType =$_GET['toType'];$/;"	v
+ConfigID	module.php	/^		$ConfigID = $_GET["ConfigID"];		\/\/ǰ̨ȡֵ,ӿConfigID$/;"	v
+ParentID	module.php	/^		$ParentID = $_GET["parentId"];$/;"	v
+array	module.php	/^		    		$array=explode(",",$v);$/;"	v
+callback	module.php	/^		$callback = $_GET['jsoncallback'];		$/;"	v
+crazyArray	module.php	/^		$crazyArray = array();$/;"	v
+currentArch	module.php	/^	$currentArch = $_GET['arch'];$/;"	v
+fileArray	module.php	/^		$fileArray = array();$/;"	v
+filerlArray	module.php	/^		$filerlArray = array();$/;"	v
+filerlArray2	module.php	/^	    $filerlArray2 = array();$/;"	v
+filerlArray3	module.php	/^		$filerlArray3 = array();$/;"	v
+jsonArray	module.php	/^		$jsonArray = array();$/;"	v
+k	module.php	/^				foreach ($madArray as $k=>$v){$/;"	v
+k	module.php	/^				foreach ($temp as $k => $v){$/;"	v
+link	module.php	/^	$link = mysql_connect($db_host,$db_username,$db_password);$/;"	v
+madArray	module.php	/^		$madArray = array();$/;"	v
+mutualByConfigID	module.php	/^	function mutualByConfigID($link){$/;"	f
+q	module.php	/^		$q = "SELECT filename.Id, filename.FileName, filename.annourl FROM filename, virtualtorealpath WHERE filename.ModuleId = $ConfigID AND virtualtorealpath.RealPath = filename.FileName AND virtualtorealpath.virtualDirId != $ParentID ORDER BY weight DESC";$/;"	v
+q	module.php	/^		$q = "SELECT filename.Id, filename.FileName, filename.annourl FROM filename, virtualtorealpath WHERE filename.ModuleId = $ConfigID AND virtualtorealpath.RealPath = filename.FileName AND virtualtorealpath.virtualDirId = $ParentID ORDER BY weight DESC";	\/\/ȡļбݼ$/;"	v
+q8	module.php	/^			$q8 = "SELECT filerelation.toId, filename.Moduleid, virtualpathtomodules.virtualDirId FROM filerelation, filename, virtualpathtomodules WHERE filerelation.fromId = $row[0] AND filename.id = filerelation.toId AND virtualpathtomodules.moduleId = filename.moduleID";$/;"	v
+q9	module.php	/^			$q9 = "SELECT filerelation.fromId, filename.Moduleid, virtualpathtomodules.virtualDirId FROM filerelation, filename, virtualpathtomodules WHERE filerelation.toId = $row[0] AND filename.id = filerelation.fromId AND virtualpathtomodules.moduleId = filename.moduleID";$/;"	v
+query_to_low	module.php	/^			$query_to_low = "SELECT functioncall.CalleeId $/;"	v
+query_to_low_reverse	module.php	/^			$query_to_low_reverse = "SELECT functioncall.CallerId $/;"	v
+relatArray	module.php	/^		$relatArray = array();$/;"	v
+rs	module.php	/^		$rs = mysql_query($q, $link);$/;"	v
+rs_tmp	module.php	/^			$rs_tmp = mysql_query($q8, $link);$/;"	v
+rs_tmp	module.php	/^			$rs_tmp = mysql_query($q9, $link);$/;"	v
+rs_tmp_to_low	module.php	/^			$rs_tmp_to_low = mysql_query($query_to_low, $link);$/;"	v
+rs_tmp_to_low	module.php	/^			$rs_tmp_to_low = mysql_query($query_to_low_reverse, $link);$/;"	v
+temp	module.php	/^				$temp = array_unique($temp);$/;"	v
+tmpmdArray	module.php	/^		$tmpmdArray = array();$/;"	v
+v	module.php	/^					$v = join(",",$v);$/;"	v
+formid	test.php	/^		$formid = 123;$/;"	v
+insertTheRelation	test.php	/^	function insertTheRelation(){$/;"	f
+link	test.php	/^		$link = mysql_connect("localhost:3306","root","123456");$/;"	v
+link	test.php	/^	$link = mysql_connect("localhost:3306","root","123456"); $/;"	v
+q	test.php	/^		$q = "INSERT INTO basevirtualrelation (FromId, ToId) VALUES ('".$formid."', '".$toid."')";$/;"	v
+q	test.php	/^		$q = "SELECT * FROM module WHERE Id=1";$/;"	v
+row	test.php	/^		$row = mysql_fetch_row($rs);$/;"	v
+rs	test.php	/^		$rs = mysql_query($q,$link);$/;"	v
+toid	test.php	/^		$toid = 4435;$/;"	v
+FileID	type.php	/^		$FileID = $_GET["TypeID"];		\/\/ǰ̨ȡֵ,ӿTypeID$/;"	v
+callback	type.php	/^		$callback = $_GET['jsoncallback'];	$/;"	v
+crazyArray	type.php	/^		$crazyArray = array();$/;"	v
+currentArch	type.php	/^	$currentArch = $_GET['arch'];$/;"	v
+jsonArray	type.php	/^		$jsonArray = $midtmprelaArray;$/;"	v
+jsonArray	type.php	/^		$jsonArray = array();$/;"	v
+link	type.php	/^	$link = mysql_connect($db_host,$db_username,$db_password);$/;"	v
+madArray	type.php	/^		$madArray = array();$/;"	v
+midtmprelaArray	type.php	/^		$midtmprelaArray = array();$/;"	v
+mutualByTypeID	type.php	/^	function mutualByTypeID($link){$/;"	f
+q	type.php	/^		$q = "SELECT typeinfotemp.Id, typeinfotemp.TypeName, typeinfotemp.Typekind , typeinfotemp.annourl$/;"	v
+q1	type.php	/^		$q1 = "SELECT typecall.ReferId, typecall.RefereeId$/;"	v
+relaArray	type.php	/^		$relaArray = array();$/;"	v
+rs	type.php	/^		$rs = mysql_query($q, $link);$/;"	v
+rs1	type.php	/^		$rs1 = mysql_query($q1, $link);$/;"	v
+tmprelaArray	type.php	/^		$tmprelaArray = array();$/;"	v
+VirDirID	virdir.php	/^		$VirDirID = $_GET["VirDirID"];		\/\/´ÓÇ°Ì¨È¡Öµ,½Ó¿ÚÊÇVirDirID$/;"	v
+array	virdir.php	/^			$array = array();$/;"	v
+array	virdir.php	/^		    $array=explode(",",$v);$/;"	v
+callback	virdir.php	/^		$callback = $_GET['jsoncallback'];	$/;"	v
+currentArch	virdir.php	/^	$currentArch = $_GET['arch'];$/;"	v
+i_max	virdir.php	/^		$i_max = count($reverseTemp);$/;"	v
+i_max	virdir.php	/^		$i_max = count($temp2);$/;"	v
+i_max	virdir.php	/^		$i_max = count($temp3);$/;"	v
+jsonarray	virdir.php	/^		$jsonarray = array();	$/;"	v
+k	virdir.php	/^		foreach ($mdrlArray as $k=>$v){$/;"	v
+k	virdir.php	/^		foreach ($moduArray as $k=>$v){$/;"	v
+k	virdir.php	/^		foreach ($module_to_high_relation as $k=>$v){$/;"	v
+k	virdir.php	/^		foreach ($module_to_low_relation as $k=>$v){$/;"	v
+k	virdir.php	/^		foreach ($reverseArray as $k=>$v){$/;"	v
+k	virdir.php	/^		foreach ($temp as $k => $v){$/;"	v
+link	virdir.php	/^	$link = mysql_connect($db_host,$db_username,$db_password);$/;"	v
+mdrlArray	virdir.php	/^		$mdrlArray = array(); 	\/\/moduleRelationArrayµÄ¼òÐ´$/;"	v
+mdtmpArray	virdir.php	/^	  		$mdtmpArray = array();	 \/\/moduleTemporaryArray¼òÐ´$/;"	v
+moduArray	virdir.php	/^		$moduArray = array();	\/\/moduleArray$/;"	v
+module_to_high_relation	virdir.php	/^	$module_to_high_relation = array();$/;"	v
+module_to_low_relation	virdir.php	/^	$module_to_low_relation = array();$/;"	v
+mutualByVirDirID	virdir.php	/^	function mutualByVirDirID($link){$/;"	f
+num	virdir.php	/^				$num = count($rlArray);$/;"	v
+q1	virdir.php	/^		$q1 = "SELECT virtualpathtomodules.ModuleId, module.ModuleName$/;"	v
+q1	virdir.php	/^	$q1 = "SELECT  virtualpathtomodules.moduleID $/;"	v
+q2	virdir.php	/^		$q2 = "SELECT functioncall.CalleeId, functioninfo.FileNameId$/;"	v
+q2	virdir.php	/^		$q2 = "SELECT functioncall.CallerId, functioninfo.FileNameId$/;"	v
+q2	virdir.php	/^		$q2 = "SELECT modulerelation.ModuleId, modulerelation.LogicRelation, modulerelation.RelationType$/;"	v
+q3	virdir.php	/^					$q3 = "SELECT Id FROM module WHERE ModuleName ='$rlArray[$i]'";$/;"	v
+q4	virdir.php	/^				$q4 = "SELECT Id FROM module WHERE ModuleName = '$str'";$/;"	v
+q5	virdir.php	/^		$q5 = "SELECT  virtualpathtomodules.moduleID, module.ModuleName $/;"	v
+q6	virdir.php	/^			$q6 = "SELECT modulerelation.ModuleId, modulerelation.RelationType$/;"	v
+q8	virdir.php	/^			$q8 = "SELECT virtualpathtomodules.virtualDirId$/;"	v
+reverseArray	virdir.php	/^		$reverseArray = array();$/;"	v
+reverseq	virdir.php	/^			$reverseq = "SELECT virtualpathtomodules.virtualDirId$/;"	v
+rlArray	virdir.php	/^				$rlArray = explode(",", $str);	\/\/·Ö¸î´¦ÀíºóµÄlogicrelation£¬½«modulename´æÈëÊý×é$/;"	v
+rlArray	virdir.php	/^			       	$rlArray = array();	$/;"	v
+rltmpArray	virdir.php	/^	  		$rltmpArray = array();	\/\/relationTemporaryArray¼òÐ´$/;"	v
+rs1	virdir.php	/^		$rs1 = mysql_query($q1, $link);$/;"	v
+rs2	virdir.php	/^		$rs2 = mysql_query($q2, $link);$/;"	v
+rs5	virdir.php	/^		$rs5 = mysql_query($q5, $link);				\/\/@@use rs1 is enough????$/;"	v
+rs5	virdir.php	/^	$rs5 = mysql_query($q5, $link);$/;"	v
+rs6	virdir.php	/^			$rs6 = mysql_query($q6, $link);$/;"	v
+rs_tmp	virdir.php	/^					$rs_tmp = mysql_query($q3, $link);$/;"	v
+rs_tmp	virdir.php	/^				$rs_tmp = mysql_query($q4, $link);$/;"	v
+rs_tmp	virdir.php	/^			$rs_tmp = mysql_query($q8, $link);$/;"	v
+rs_tmp	virdir.php	/^			$rs_tmp = mysql_query($reverseq, $link);$/;"	v
+rs_tmp	virdir.php	/^		$rs_tmp = mysql_query($q2,$link);$/;"	v
+str	virdir.php	/^			$str = preg_replace('(!)', '', $/;"	v
+string	virdir.php	/^			$string = $row[1];$/;"	v
+temp	virdir.php	/^		$temp = array_unique($temp);$/;"	v
+tmp	virdir.php	/^				$tmp = array();$/;"	v
+tomdtmpArray1	virdir.php	/^		$tomdtmpArray1 = array();$/;"	v
+torltmpArray	virdir.php	/^		$torltmpArray = array();$/;"	v
+v	virdir.php	/^			$v = join(",",$v);$/;"	v
+vid	virdir.php	/^			$vid  = $reverseTemp[$i]["from"];	$/;"	v
+vid	virdir.php	/^			$vid  = $temp3[$i]["to"];			\/\/@@the reverse relation 'to' is the current virtualDirID$/;"	v
+vid	virdir.php	/^			$vid = substr($vid,2,strlen($vid));		$/;"	v
+vid	virdir.php	/^			$vid = substr($vid,2,strlen($vid));$/;"	v

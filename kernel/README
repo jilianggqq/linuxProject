@@ -1,0 +1,11 @@
+config.php 文件为数据库配置文件
+init.php 为交互式图解软件首页虚目录结构JSON数据生成文件，其使用方法如下：
+
+1.运行sudo php init.php
+2.根据提示输入想要生成的体系架构 x86 或者 arm
+3.根据提示输入希望生成文件所在的绝对路径  如 /home/user/document/test.json
+
+注：生成的json文件应该位于kernelProject前端文件夹的根目录下，如：
+/var/www/represent/kernelProject/711.json
+
+将文件直接写入该目录会需要管理员权限，所以请使用sudo来执行init.php脚本。

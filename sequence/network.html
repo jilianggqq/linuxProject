@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]>
+<html class="ie1">
+<![endif]-->
+<html class="no-js">
+<head>
+	
+		<meta charset="utf-8" />
+	
+		<!--[if lt IE 9]>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+		<![endif]-->
+		
+		<title>Linux Kernel Initialization</title>
+		
+		<!-- html 5 shim + modernizer -->
+		<script src="js/modernizr.js"></script>
+		
+		<!-- all stylesheets -->
+		
+		
+		
+		<link rel="stylesheet" href="css/reset.css" />
+		<link rel="stylesheet" href="css/960.css" />
+		<link rel="stylesheet" href="css/tipsy.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/fancy.css" />
+		<link href="css/nivo-slider.css" rel="stylesheet" />
+	
+		<!--[if lt IE 9]>
+		<link rel="stylesheet" href="css/ie.css" />
+		<![endif]-->
+		
+		<!--[if lt IE 9]>
+		<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+		<![endif]-->
+		
+		<!-- Fonts -->
+		
+		<link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css' />
+		
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,400' rel='stylesheet' type='text/css' />
+
+		
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<body>
+		<header id="header" class="clearfix">
+			<section class="container_12">
+				<section class="grid_12">
+					<a href="index.html"><img class="logo" alt="" src="img/logo.png" /></a>
+					<nav id="main_nav" class="jqueryslidemenu">
+						<ul>
+							<!--
+							<li><a href="index.html">主页</a>
+							</li>
+							-->
+							<li><a href="#.html">系统运行</a>
+							
+								<ul>
+									<!--
+									<li><a href="about.html">系统运行与初始化</a></li>
+									-->
+									<li><a href="index.html">系统运行综述</a></li>
+									<li><a href="system-power.html">电源管理</a></li>
+									<li><a href="system-acpi.html">ACPI</a></li>
+								</ul>
+							
+							</li>
+							
+							<li><a href="#.html">进程管理</a>
+								<ul>
+							     <li><a href="progress.html">进程管理综述</a></li>
+							     <li><a href="pro-con.html">进程间通信</a></li>
+							     <li><a href="pro-x86cpu.html">x86结构CPU</a></li>
+							</ul>
+							</li>
+							
+							<li><a href="#.html">内存管理</a>
+								<ul>
+									<li><a href="mem-management.html">内存管理综述</a></li>
+								</ul>
+							</li>
+							
+							<li><a href="#">设备管理</a>
+								<ul>
+									<li><a href="device-management.html">Linux设备综述</a></li>
+									<li><a href="dma.html">DMA模块</a></li>
+									<li><a href="gpio.html">GPIO模块</a></li>
+									<li><a href="hid.html">HID模块</a></li>
+									<li><a href="ide.html">IDE模块</a></li>
+									<li><a href="input.html">INPUT模块</a></li>
+									<li><a href="kvm.html">KVM模块</a></li>
+									<li><a href="pci.html">PCI模块</a></li>
+									<li><a href="pnp.html">PNP模块</a></li>
+									<li><a href="scsi.html">SCSI模块</a></li>
+									<li><a href="spi.html">SPI总线</a></li>
+									<li><a href="tty.html">tty模块</a></li>
+									<li><a href="xen.html">Xen模块</a></li>
+									<li><a href="device-drive.html">设备驱动</a></li>
+									<li><a href="frames-buffer.html">帧缓冲</a></li>
+									<li><a href="sound.html">sound模块</a></li>
+								</ul>
+								
+						  </li>
+							   
+							
+							<li><a href="#">网络系统</a>
+							
+								<ul>
+									<li><a href="network.html">网络系统综述</a></li>
+									<li><a href="netfile.html">网络文件系统</a></li>
+								</ul>
+							
+							</li>
+							
+							
+							<li><a href="#">文件系统</a>
+							
+								<ul>
+									<li><a href="file.html">文件系统综述</a></li>
+									<li><a href="fileblock.html">块设备</a></li>
+								</ul>
+							
+							</li>
+							
+							
+							
+							<li><a href="#">系统安全</a>
+							
+								<ul>
+									<li><a href="security.html">安全审计</a></li>
+								</ul>
+							
+							</li>
+							
+							
+							
+							
+						</ul>
+					</nav><!-- end of menu -->
+				</section><!--end of grid_12-->
+			</section><!-- end of container_12-->
+		</header>
+		
+		<div class="clear"></div>
+		
+		
+		
+		<section class="page-header">
+		<h1>初始化动态时序图</h1>
+	</section>
+	
+		<div class="clear"></div>
+	<section id="main_content" class="container_12">
+		<section class="content">
+
+	
+	<section class="container_12">
+
+	  <!-- end of content -->
+	  <section class="grid_12">
+		
+		<!--表格固定宽度,自动换行-->
+		<table width="800" border="1" align="center" cellpadding="0" cellspacing="0"  style="word-break:break-all; word-wrap:break-all;margin-top:5px;">
+			
+		<tr width="800">
+     <td width="800">
+   	<p>
+	  	<table width="925" align="center" cellpadding="0" cellspacing="0" style="word-break:break-all; word-wrap:break-all;margin-top:5px;">
+	  	  
+			
+	<tr width="100%" style="margin-top:10px padding-top:10px">
+		<td width="100%">
+		<H3 ALIGN = CENTER>网络系统</H3>
+		</td>	
+	</tr>		
+	
+	<tr width="100%">
+		<td width="100%" style="line-height:100%">
+		<p style=" text-indent:2em">由网络系统的设备操作层初始化、网络系统的网络协议初始化、网络系统的socket初始化的分析，可以得出网络系统初始化的时序图。如下图所示：
+</p>
+
+ </p>
+		</td>	
+	</tr>			
+			
+  <tr width="100%">
+   <td width="100%">
+	  
+	  
+	  <p align="center"><img src="img/network.jpg" alt="网络系统" width="724" height="538" /></p>
+	  
+	</td>
+  </tr>
+  
+ </table>
+	  </p>	
+     </td>
+    </tr>	
+</table>
+		
+		
+		
+		
+		
+		
+		
+		
+    </section>
+    <!--
+    	<section id="main_content" class="container_12">
+	</section><!-- end of #main_content-->
+</section>
+
+
+
+<script src="js/jquery.js"></script>	
+<script src="js/nivo-960.js"></script>	
+<script src="js/menu.js"></script>	
+<script src="js/easing.js"></script>	
+<script src="js/fancy.js"></script>	
+<script src="js/tipsy.js"></script>	
+<script src="js/custom.js"></script>	
+		
+<script>
+$(window).load(function() {
+
+		/* Nivo slider */
+        $('#slider').nivoSlider({
+		directionNavHide: false, // Only show on hover});
+		controlNav: true,
+		effect: 'sliceDown',
+		animSpeed: 1000
+		 
+		});
+
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,762 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>linux-kernel</title>
+	<link href="jquery-ui/css/smoothness/jquery-ui-1.10.2.custom.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="zTree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+	<script type="text/javascript" src="jquery-ui/js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="jquery-ui/js/jquery-ui-1.10.2.custom.min.js"></script>
+	<script type="text/javascript" src="raphael/raphael.js"></script>
+	<script type="text/javascript" src="zTree/js/jquery.ztree.core-3.5.js"></script>
+	<script type="text/javascript" src="js/manipulate.js"></script>
+	<script type="text/javascript" src="js/arrow.js"></script>
+	<script type="text/javascript" src="js/treemenu.js"></script>
+	<script type="text/javascript" src="js/region.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+
+	<link href="css/master.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="jquery-ui/js/jquery.js"></script>
+	<link href="jquery-ui-multiselect-widget/jquery.multiselect.css" rel="stylesheet" type="text/css" />
+	<link href="jquery-ui-multiselect-widget/jquery.multiselect.filter.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="jquery-ui-multiselect-widget/jquery.multiselect.js"></script>
+	<script type="text/javascript" src="jquery-ui-multiselect-widget/jquery.multiselect.filter.js"></script>
+	
+	<script>
+	$(function(){
+		$("select").multiselect({
+			multiple: false,
+			header: "Select an option",
+			noneSelectedText: "Select an Option",
+			selectedList: 1
+		});
+	});
+	$(document).ready(function() {
+		var e=document.getElementById("msg_end");
+		e.scrollIntoView();
+	});
+	$(function() {
+		$( "#accordion" ).accordion({
+			heightStyle: "content"
+		});
+	});
+
+	function setTsinghuaFunc () {
+		var tsinghuaFuncs = $("#tsinghuaFunc").val();
+
+		if(tsinghuaFuncs == "getLXRFromTsinghua"){
+			TsinghuaClick(0);
+		}else if(tsinghuaFuncs == "getLXRFromTsinghua2"){
+			TsinghuaClick(1);
+		}else if(tsinghuaFuncs == "getLXRFromTsinghua3"){
+			TsinghuaClick(2);
+		}
+	}
+	
+	function setFilter(){
+		var filterFuncs = $("#filterFunc").val();
+		if(filterFuncs == "filter"){
+			filterClick();
+		}else if(filterFuncs == "twoWayfilter"){
+			twoWayfilterClick();
+		}else if(filterFuncs == "twoOtherfilter"){
+			twoOtherfilterClick();
+		}
+		
+		
+	}
+	</script>
+	<!-- 添加关系-->
+	<script>
+	$(function() {
+		var sname = $( "#sname" ).val(),
+			ename = $( "#ename" ).val(),
+			allFields = $( [] ).add( sname ).add( ename );
+
+		function updateTips( t ) {
+			tips
+				.text( t )
+				.addClass( "ui-state-highlight" );
+			setTimeout(function() {
+				tips.removeClass( "ui-state-highlight", 1500 );
+			}, 500 );
+		}
+
+		$( "#dialog-form-cr" ).dialog({
+			autoOpen: false,
+			height: 280,
+			width: 300,
+			modal: true,
+			buttons: {
+				添加: function() {
+					var bValid = true;
+					allFields.removeClass( "ui-state-error" );
+					//交互
+					$.post("http://localhost:8080/kernelProject-20130601/phplib/opmodule.php",
+					{sname:sname,
+					 ename:ename,
+					 op:addrel,
+					},
+					function(status){
+    				alert("operation " + status);
+ 					});
+
+					$( this ).dialog( "close" );	
+				},
+				取消: function() {
+					$( this ).dialog( "close" );
+				}
+			},
+			close: function() {
+				allFields.val( "" ).removeClass( "ui-state-error" );
+			}
+		});
+
+		$( "#create-relation" )
+			.button()
+			.click(function() {
+				$( "#dialog-form-cr" ).dialog( "open" );
+			});
+	});
+	</script>
+	
+	<!--添加模块-->
+	<script>
+	$(function() {
+		var name = $("#name").val(),
+			fname = $("#fname").val(),
+			allFields = $([]).add(name).add(fname);
+
+		function updateTips(t) {
+			tips
+				.text(t)
+				.addClass("ui-state-highlight");
+			setTimeout(function() {
+				tips.removeClass("ui-state-highlight", 1500);
+			}, 500);
+		}
+
+		$("#dialog-form-cm").dialog({
+			autoOpen: false,
+			height: 220,
+			width: 300,
+			modal: true,
+			buttons: {
+				添加: function() {
+					var bValid = true;
+					allFields.removeClass("ui-state-error");
+					//交互
+					$.post("http://localhost:8080/kernelProject-20130601/phplib/opmodule.php",
+					{name:name,
+					 fname:fname,
+					 op:addmd
+					},
+					function(status){
+    				alert("operation " + status);
+ 					});
+					$(this).dialog("close");	
+				},
+				取消: function() {
+					$(this).dialog("close");
+				}
+			},
+			close: function() {
+				allFields.val("").removeClass("ui-state-error");
+			}
+		});
+
+		$("#create-model")
+			.button()
+			.click(function() {
+				$("#dialog-form-cm").dialog("open");
+			});
+	});
+	</script>
+	<!--删除模块-->
+	<script>
+	$(function() {
+		var name = $("#name").val(),
+			
+			allFields = $( [] ).add( name );
+
+		
+
+		$( "#dialog-form-rm" ).dialog({
+			autoOpen: false,
+			height: 220,
+			width: 300,
+			modal: true,
+			buttons: {
+				删除: function() {
+					var bValid = true;
+					allFields.removeClass( "ui-state-error" );
+
+					//交互
+					$.post("http://localhost:8080/kernelProject-20130601//phplib/opmodule.php",
+					{name:name,
+					op:delmd
+					},
+					function(status){
+    				alert("operation " + status);
+ 					});
+					$( this ).dialog( "close" );	
+				},
+				取消: function() {
+					$( this ).dialog( "close" );
+				}
+			},
+			close: function() {
+				allFields.val( "" ).removeClass( "ui-state-error" );
+			}
+		});
+
+		$( "#remove-model" )
+			.button()
+			.click(function() {
+				$( "#dialog-form-rm" ).dialog( "open" );
+			});
+	});
+	</script>
+	<!--删除关系-->
+	<script>
+	$(function() {
+		var sname = $( "#sname" ).val(),
+			ename = $( "#ename" ).val(),
+			allFields = $( [] ).add( sname ).add( ename );
+
+
+		$( "#dialog-form-rr" ).dialog({
+			autoOpen: false,
+			height: 280,
+			width: 300,
+			modal: true,
+			buttons: {
+				删除: function() {
+					var bValid = true;
+					allFields.removeClass( "ui-state-error" );
+
+					//交互
+					$.post("http://localhost:8080/kernelProject-20130601/phplib/opmodule.php",
+					{sname:sname,
+					 ename:ename,
+					 op:delrel
+					},
+					function(status){
+    				alert("operation " + status);
+ 					});
+					$( this ).dialog( "close" );	
+				},
+				取消: function() {
+					$( this ).dialog( "close" );
+				}
+			},
+			close: function() {
+				allFields.val( "" ).removeClass( "ui-state-error" );
+			}
+		});
+
+		$( "#remove-relation" )
+			.button()
+			.click(function() {
+				$( "#dialog-form-rr" ).dialog( "open" );
+			});
+	});
+	</script>
+	<!--修改模块-->
+	<script>
+	$(function() {
+		var name = $("#name").val(),
+			newname = $("#newname").val(),
+			allFields = $([]).add(name).add(newname);
+
+
+		$("#dialog-form-am").dialog({
+			autoOpen: false,
+			height: 220,
+			width: 300,
+			modal: true,
+			buttons: {
+				修改: function() {
+					var bValid = true;
+					allFields.removeClass("ui-state-error");
+					
+					//交互
+					$.post("http://localhost:8080/kernelProject-20130601/phplib/opmodule.php",
+					{name:name,
+					 newname:newname,
+					 op:chgmdname
+					},
+					function(status){
+    				alert("operation " + status);
+ 					});
+					$( this ).dialog( "close" );	
+				},
+				取消: function() {
+					$( this ).dialog( "close" );
+				}
+			},
+			close: function() {
+				allFields.val( "" ).removeClass( "ui-state-error" );
+			}
+		});
+
+		$("#alter-model")
+			.button()
+			.click(function() {
+				$("#dialog-form-am").dialog("open");
+			});
+	});
+	</script>
+	<!--修改关系-->
+	<script>
+	$(function() {
+	
+			var sname = $( "#sname" ).val(),
+				ename = $( "#ename" ).val(),
+				newname = $( "#newname").val(),
+			allFields = $( [] ).add( sname ).add( ename ).add( newname );
+
+		$( "#dialog-form-ar" ).dialog({
+			autoOpen: false,
+			height: 280,
+			width: 300,
+			modal: true,
+			buttons: {
+				修改: function() {
+					var bValid = true;
+						
+					//交互
+					$.post("http://localhost:8080/kernelProject-20130601/phplib/opmodule.php",
+					{sname:sname,
+					 ename:ename,
+					 newname:newname,
+					 op:chgrel
+					},
+					function(status){
+    				alert("operation " + status);
+ 					});
+					$( this ).dialog( "close" );	
+				},
+				取消: function() {
+					$( this ).dialog( "close" );
+				}
+			},
+			close: function() {
+				allFields.val( "" ).removeClass( "ui-state-error" );
+			}
+		});
+
+		$( "#alter-relation" )
+			.button()
+			.click(function() {
+				$( "#dialog-form-ar" ).dialog( "open" );
+			});
+	});
+	</script>
+	<style>
+		body { margin: 0 0 0 0; padding: 0 0 0 0; overflow: hidden; font: 62.5% "Trebuchet MS", sans-serif;}
+		div { margin: 0 0 0 0; padding: 0 0 0 0; }
+		
+		#container { width: 100%; height: 100%; }
+
+		#north { height: 50px; background: #E8F2FE; font-size: 16px;}
+		#west { width: 220px; height: 100px; background: #C4E8FD; float:left; 
+				font: 62.5% "Trebuchet MS", sans-serif;}
+		#center { float:left; background: #FFFFFF url('img/bg.png') repeat fixed center; overflow: auto; }
+		#filterPaper { float:left; background: #FFFFFF url('img/bg.png') repeat fixed center; overflow: auto; }
+		#south { height: 20px; width: 100%; background: #E8F2FE; clear:both; text-align: center;}
+		
+		#north h1 { font-family: Oswald,helvetica,sans-serif; font-weight: bolder; font-size: 200%; margin: 0 0 0 10px; padding: 0 0 0 0; }
+		#south a {color: black; text-decoration: none;}
+		
+		svg { margin: 0 0 0 0; padding: 0 0 0 0; position: relative; top: 0; left: 0; }
+		
+		#zoombar, #toolbar, #radioset { width: 100%; padding: 2px; display: inline-block; font-size: 9px; }
+		#zoombar button {width: 48%;}
+		#currentZoomFactorText {display: none;}
+		#toolbar input {width: 60%;}
+		#toolbar button {width: 35%;}
+		#radioset label {width: 48%; font-size: 10px;}
+		#tree {height: 300px; overflow: auto; border: medium solid silver;}
+		
+		#dialog_svg { float:left; background: #FFFFFF url('img/bg.png') repeat fixed center; overflow: auto; }
+		#dialog_svg_file { float:left; background: #FFFFFF url('img/bg.png') repeat fixed center; overflow: auto; }
+		#dialog_slider {margin: 0 20px 10px 5px; }
+		#dialog_slider .ui-slider-range { background: #ef2929; }
+		#dialog_slider .ui-slider-handle { border-color: #ef2929; }
+	</style>
+	
+	<script>
+	<!--	
+		var GET_MAP_URL = 'map7111.json';
+	
+		/**
+		 * 绘制顶层模块
+		 */
+		function drawTopModules(paper) {
+			//进程管理
+			var processing = new module("0_1", "进程", "-1", 0,"#", 0);
+			processing.setSize(10, regionY, 180, paddingHeight);
+			//系统运行
+			var system = new module("0_2", "系统管理", "-1", 0,"#", 0);
+			system.setSize(210, regionY, 180, paddingHeight);
+			
+			//内存管理
+			var memory = new module("0_3", "内存", "-1", 0,"#", 0);
+			memory.setSize(410, regionY, 180, paddingHeight);
+			
+			//文件系统
+			var storage = new module("0_4", "文件系统", "-1", 0,"#", 0);
+			storage.setSize(610, regionY, 180, paddingHeight);
+			
+			//网络协议
+			var networking = new module("0_5", "网络", "-1",0, "#", 0);
+			networking.setSize(810, regionY, 180, paddingHeight);
+			
+			//内核安全
+			var security = new module("0_6", "安全", "-1", 0,"#", 0);
+			security.setSize(1010, regionY, 180, paddingHeight);
+			
+			//设备驱动
+			var electronics = new module("0_7", "设备驱动", "-1",0, "#", 0, "horizontal");
+			electronics.setSize(10, 10, paddingHeight + 2, 250);
+			
+			//虚拟化
+			var virtualization = new module("0_8", "虚拟化", "-1", 0,"#", 0);
+			virtualization.setSize(10, 20, paddingHeight + 2, 250);
+			
+			drawModule(paper, processing);
+			drawModule(paper, system);
+			drawModule(paper, memory);
+			drawModule(paper, storage);
+			drawModule(paper, networking);
+			drawModule(paper, security);
+			drawModule(paper, electronics);
+			drawModule(paper, virtualization);
+		}	
+	
+		/**
+		 * 页面加载完毕后的初始化
+		 */
+		function initialize(evt) {
+			/*
+			 * 全局变量设置，设置完成之后不能再修改
+			 */
+			mapPaper = Raphael("center");
+			svgDom = $("svg")[0];
+
+			/*
+			 * jquery ajax 设置
+			 */
+			$.ajaxSetup({
+                error: function(x,e){
+                    alert("AJAX错误：" + e);
+                    return false;
+                }
+            });
+			
+			$.getJSON(GET_MAP_URL, { "time": (new Date()).getTime() }, function(data) {
+				autoLayout(evt);
+				initTree(GET_MAP_URL);						
+				//drawTopModules(mapPaper);
+				paint(mapPaper, data);
+				
+				
+				
+				window.addEventListener('resize', autoLayout, false);
+				window.addEventListener('keydown', processKeyPress, true); // OK to let the keydown event bubble.
+				
+				svgDom.addEventListener('mousewheel', zoomViaMouseWheel, false); // Don't let the mousewheel event bubble up to stop native browser window scrolling.
+				svgDom.addEventListener('dragstart', dragHandler.dragstart, false);
+				svgDom.addEventListener('dragend', dragHandler.dragend, false);
+				svgDom.addEventListener('mousedown', dragHandler.dragstart, false);
+				svgDom.addEventListener('mouseup', dragHandler.dragend, false);
+				
+				
+				$('#zoom_in').button({
+					icons: { primary: "ui-icon-zoomin" }
+				}).click( function( event ) {
+					zoom('zoomIn');
+				});
+
+				$('#zoom_out').button({
+					icons: { primary: "ui-icon-zoomout" }
+				}).click( function( event ) {
+					zoom('zoomOut');
+				});	
+				$('#filter').button({
+					icons: { primary: "ui-icon-filter" }
+				}).click(function(){
+					filterClick();
+				});
+				$('#twoWayfilter').button({
+					icons: { primary: "ui-icon-filter" }
+				}).click(function(){
+					twoWayfilterClick();
+				});
+				$('#twoOtherfilter').button({
+					icons: { primary: "ui-icon-filter" }
+				}).click(function(){
+					twoOtherfilterClick();
+				});
+				$('#filterRestore').button({
+					icons: { primary: "ui-icon-filter" }
+				}).click(function(){
+					restoreLink(mapPaper);
+				});
+				$('#interface_refresh').button({
+					icons: { primary: "ui-icon-refresh" }
+				}).click(function(){
+					parent.location.reload();
+				});
+
+				$('#sequence').button({
+					icons: { primary: "ui-icon-transferthick-e-w" }
+				}).click(function(){
+					window.open("./sequence/index.html","","");
+				});
+				
+				$('#use_hint').button({
+					icons: { primary: "ui-icon-info" }
+				});
+				$('#x86').button({
+					icons: { primary: "ui-icon-transferthick-e-w" }
+				}).click(function(){
+					window.open("index.html","","");
+					parent.location.reload();
+				});
+				$( document ).tooltip({
+					 items: "#zoom_in, #zoom_out, #use_hint, #x86",
+					 track: true,
+					 content: function() {
+						 var element = $( this );
+						 if(element.is("#use_hint")) {
+							 return "<table border='1' bordercolor='#a0c6e5' style='border-collapse:collapse;'><tr><td style='border: solid 1px #a0c6e5; height: 20px;' bgcolor='#dae9bd' colspan='3'>1、画线的颜色说明：</td></tr><tr><td width='26%'>depand on</td><td width='37%'><font color='black'><span style='font-weight:bold;'>black<hr style='FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#f6ae56,direction:145,strength:15)' color='black' SIZE=5 width='70%'/></span></font></td><td width='37%'><font color='red'><span style='font-weight:bold;'>red<hr style='FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#f6ae56,direction:145,strength:15)' color='red' SIZE=5 width='70%'/></span></font></td></tr><tr><td width='26%'>select</td><td width='37%'><font color='chocolate'><span style='font-weight:bold;'>chocolate<hr style='FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#f6ae56,direction:145,strength:15)' color='chocolate' SIZE=5 width='70%'/></span></font></td><td width='37%'><font color='darkred'><span style='font-weight:bold;'>darkred<hr style='FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#f6ae56,direction:145,strength:15)' color='darkred' SIZE=5 width='70%'/></span</font></td></tr><tr><td width='26%'>if条件</td><td width='37%'><font color='indianred'><span style='font-weight:bold;'>indianred<hr style='FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#f6ae56,direction:145,strength:15)' color='indianred' SIZE=5 width='70%'/></span</font></td><td width='37%'><font color='indigo'><span style='font-weight:bold;'>indigo<hr style='FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#f6ae56,direction:145,strength:15)' color='indigo' SIZE=5 width='70%'/></span</font></td></tr><tr><td width='26%'>默认颜色</td><td width='37%'><font color='mediumorchid'><span style='font-weight:bold;'>mediumorchid<hr style='FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#f6ae56,direction:145,strength:15)' color='mediumorchid' SIZE=5 width='70%'/></span</font></td><td width='37%'><font color='blue'><span style='font-weight:bold;'>blue<hr style='FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#f6ae56,direction:145,strength:15)' color='blue' SIZE=5 width='70%'/></span></font></td></tr></table>2、可用鼠标拖拽图像, 也可用上下左右箭头平移.";
+						 }else if(element.is("#x86")){
+							return "当前体系结构为arm,点击'切换x86'按钮切换到arm体系结构.";
+						 }else if(element.is("#filterRestore")){
+							return "重置模块之间的关系到初始化页面时.";
+						 }else if(element.is("#selectDiv")){
+							return "选择的模块(字体变红)与其他模块之间的关系.";
+						 }else if(element.is("#pageNext")){
+							return "编译选项下文件的分批展示.";
+						 } else if (element.is("#sequence")){
+						 	return "查看Linux内核时序图";
+						 }
+
+						 var text = $("#currentZoomFactorText").text();
+						 return "当前显示比例为：" + text;
+					 }
+				});
+			});
+		}
+
+		window.addEventListener('load', initialize, false);
+	//-->
+	</script>
+</head>
+
+<body>
+	<div id="Tsinghua" style="position: fixed; top: 10px; left: 35%;">
+		<select name="tsinghuaFunc" id="tsinghuaFunc" onchange="setTsinghuaFunc();"> 
+			<option value="getLXRFromTsinghua">函数调用图</option>
+			<option value="getLXRFromTsinghua2">函数调用列表</option>
+			<option value="getLXRFromTsinghua3">函数调用路径分析</option>
+			<option value="cancel">取消</optoin>
+		</select>
+	</div>
+
+	<div id="pageNext" style="position: fixed;top: 10px; left: 47%;">
+		<select name="pageSelect" id="pageSelect" style="width:100px;" onchange="page(this);"> 
+			<option value="12">每12换一批</option> 
+			<option value="24">每24换一批</option>
+			<option value="10000">显示所有</option>
+		</select>
+	</div>
+
+	<div id="selectDiv" style="position: fixed; top: 10px; left: 60%;">
+		<select name="filterFunc" id="filterFunc" onchange="setFilter();"> 
+			<option value="filter">全部关系</option> 
+			<option value="twoWayfilter">内部关系</option>
+			<option value="twoOtherfilter">外部关系</option>
+		</select>
+	</div>
+	<div style="position: fixed; top: 10px; left: 72%;">
+		<button id="filterRestore">filter-restore</button>
+	</div>
+	<div style="position: fixed; top: 10px; left: 83%;">
+		<button id="interface_refresh">刷新界面</button>
+	</div>
+	<div style="position: fixed; top: 10px; left: 90%;">
+		<button id="use_hint">使用提示</button>
+	</div>
+	<div id="dialog-form-cr" title="添加关系" style="font-size:150%">
+		<form>
+				<br />
+				<label for="name">起始模块</label>
+				<input type="text" name="sname" id="sname" class="text ui-widget-content ui-corner-all" />
+				<br />
+				<br />
+				<label for="fname">结尾模块</label>
+				<input type="text" name="ename" id="ename" value="" class="text ui-widget-content ui-corner-all" />
+				<br />
+				<br />
+				<label for="fname">模块关系</label>
+				<input type="text" name="rname" id="rname" value="" class="text ui-widget-content ui-corner-all" />
+		</form>
+	</div>
+
+	<div id="dialog-form-cm" title="添加模块" style="font-size:150%">
+		<form>
+			<br />
+			<label for="name">模块名</label>
+			<input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all" />
+			<br />
+			<br />		
+			<label for="fname">父模块</label>
+			<input type="text" name="fname" id="fname" value="" class="text ui-widget-content ui-corner-all" />		
+		</form>
+	</div>
+
+	<div id="dialog-form-rm" title="删除模块" style="font-size:150%">
+		<form>
+			<br />
+			<br />
+			<label for="name">模块名</label>
+			<input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all" />
+			<br />
+			<br />
+		</form>
+	</div>
+
+	<div id="dialog-form-rr" title="删除关系" style="font-size:150%">
+		<form>	
+			<br />
+			<label for="name">起始模块</label>
+			<input type="text" name="sname" id="sname" class="text ui-widget-content ui-corner-all" />
+			<br />
+			<br />
+			<label for="fname">结尾模块</label>
+			<input type="text" name="ename" id="ename" value="" class="text ui-widget-content ui-corner-all" />
+			<br />
+			<br />
+			<label for="fname">模块关系</label>
+			<input type="text" name="rname" id="rname" value="" class="text ui-widget-content ui-corner-all" />
+		</form>
+	</div>
+
+	<div id="dialog-form-am" title="修改模块" style="font-size:150%">
+		<form>	
+			<br />
+			<label for="name">模块原名</label>
+			<input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all" />
+			<br />
+			<br />
+			<label for="fname">模块新名</label>
+			<input type="text" name="nname" id="nname" value="" class="text ui-widget-content ui-corner-all" />	
+		</form>
+	</div>
+
+	<div id="dialog-form-ar" title="修改关系" style="font-size:150%">
+		<form>
+			<br />
+			<label for="name">起始模块</label>
+			<input type="text" name="sname" id="sname" class="text ui-widget-content ui-corner-all" />
+			<br />
+			<br />
+			<label for="fname">结尾模块</label>
+			<input type="text" name="ename" id="ename" value="" class="text ui-widget-content ui-corner-all" />
+			<br />
+			<br />
+			<label for="fname">模块关系</label>
+			<input type="text" name="rname" id="rname" value="" class="text ui-widget-content ui-corner-all" />
+		</form>
+	</div>
+	<div id="container">
+
+		<div id="north">
+			<h1 style="font-family:Microsoft YaHei;">LINUX交互式图解软件</h1>
+		</div>
+	
+		<div id="west">
+			<div id="zoombar" class="ui-widget-header ui-corner-all">
+				<button id="zoom_in" >放大</button>
+				<button id="zoom_out" >缩小</button>
+				<span id="currentZoomFactorText">1.000</span>
+			</div>
+			<div class="ui-widget-header ui-corner-all">
+			<button id="x86" style="heght:100%; width:100%;">切换x86</button>
+			</div>
+			<div  class="ui-widget-header ui-corner-all">
+			<button id="sequence"  style="heght:100%; width:100%;">查看时序图</button>
+			</div>
+<!--			<div id="radioset" class="ui-widget-header ui-corner-all" style="display: all;">-->
+<!--				<input type="radio" id="radio1" name="radio" value="1" checked="checked" ><label for="radio1">全部展开</label>-->
+<!--				<input type="radio" id="radio2" name="radio" value="1" ><label for="radio2">全部收起 </label>-->
+<!--				<div id="accordion">-->
+<!--					<h3>添加</h3>-->
+<!--						<div>-->
+<!--							<button id="create-model">添加模块</button>-->
+<!--							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+<!--							<button id="create-relation">添加关系</button>-->
+<!--						</div>-->
+<!--					<h3>删除</h3>-->
+<!--						<div>-->
+<!--							<button id="remove-model">删除模块</button>-->
+<!--							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+<!--							<button id="remove-relation">删除关系</button>-->
+<!--						</div>-->
+<!--					<h3>修改</h3>-->
+<!--						<div>-->
+<!--							<button id="alter-model">修改模块</button>-->
+<!--							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+<!--							<button id="alter-relation">修改关系</button>-->
+<!--						</div>	-->
+<!--				</div>-->
+<!--			</div>-->
+			<!-- <div id="toolbar" class="ui-widget-header ui-corner-all">
+				<input id="txt_search" title="输入模块名称" />
+				<button id="btn_search" >搜索</button>
+			</div>
+			<div id="tree">
+				<ul id="treemenu" class="ztree"></ul>
+			</div> -->
+		</div>
+	
+		<div id="center">
+		</div>
+		<div id="msg_end" style="height:0px; overflow:hidden"></div>
+			
+		<div id="south">
+			Copyright 2013 &copy; <a href="http://www.ss.pku.edu.cn/" target="_blank">北京大学软件与微电子学院</a>
+		</div>
+		<div class="news_content" id="selectDig" style="display:none;">
+			<input id="stype" value="-1" type="hidden">
+			<p class="p01" onclick="selectfsv(3);">函数</p>
+			<p class="p01" onclick="selectfsv(5);">变量</p>
+			<p class="p01" onclick="selectfsv(6);">查看注释</p>
+			<!--<p class="p01" onclick="selectfsv(4);">结构体</p>-->
+		</div>
+		<div class="news_content" id="selectDig3" style="display:none;">
+			<input id="stype" value="-1" type="hidden">
+			<p class="p01" onclick="selectzs(6);">查看注释</p>
+		</div>
+		<div class="news_content" id="selectDig2" style="display:none;">
+			<input id="selectOpenId" value="-1" type="hidden">
+			<p id="openpId" class="p01" onclick="openChild(1);">展开</p>
+			<!-- <p class="p01" onclick="openChild(2);">编译选项</p> -->
+			<!-- <p class="p01" onclick="openChild(3);">查看注释</p> -->
+			<!--<p class="p01" onclick="selectfsv(4);">结构体</p>-->
+		</div>
+		<div class="news_content" id="selectDig4" style="display:none;">
+                       <input id="stype" value="-1" type="hidden">
+                      <p class="p01" onclick="selectby(1);">展开</p>
+                       <p class="p01" onclick="selectby(6);">查看注释</p>
+         </div>
+		<div id="filterDialog" style="display:none;">
+			<div id="filterPaper"></div>
+		</div>
+	</div>
+</body>
+
+</html>

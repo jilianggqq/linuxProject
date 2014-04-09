@@ -1,0 +1,800 @@
+﻿{
+    "name": "kernel",
+    "version": "3.5.4",
+    "map": {
+        "layers": [
+            {
+                "level": 0,
+                "modules": [
+                    {
+                        "id": 1,
+                        "name": "进程",
+                        "parentid": -1,
+                        "type": 0,
+                        "level": -1
+                    },
+                    {
+                        "id": 2,
+                        "name": "系统管理",
+                        "parentid": -1,
+                        "type": 0,
+                        "level": -1
+                    },
+                    {
+                        "id": 3,
+                        "name": "内存",
+                        "parentid": -1,
+                        "type": 0,
+                        "level": -1
+                    },
+                    {
+                        "id": 4,
+                        "name": "文件系统",
+                        "parentid": -1,
+                        "type": 0,
+                        "level": -1
+                    },
+                    {
+                        "id": 5,
+                        "name": "网络",
+                        "parentid": -1,
+                        "type": 0,
+                        "level": -1
+                    },
+                    {
+                        "id": 6,
+                        "name": "安全",
+                        "parentid": -1,
+                        "type": 0,
+                        "level": -1
+                    },
+                    {
+                        "id": 7,
+                        "name": "设备驱动",
+                        "parentid": -1,
+                        "type": 0,
+                        "level": -1
+                    }
+                ],"relations":[]
+            },
+            {
+                "level": 1,
+                "modules": [
+                	{"id":99,"name":"cpu管理","parentid":1,"type":0,"level":1},
+                	{"id":100,"name":"kernel","parentid":1,"type":0,"level":1},
+                	{"id":101,"name":"进程控制","parentid":1,"type":0,"level":1},
+                	{"id":102,"name":"进程调度","parentid":1,"type":0,"level":1},
+                	{"id":103,"name":"进程通信","parentid":1,"type":0,"level":1},
+                	{"id":104,"name":"进程同步","parentid":1,"type":0,"level":1},
+                	{"id":105,"name":"中断处理","parentid":1,"type":0,"level":1},
+                	
+                    {
+                        "id": 8,
+                        "name": "arch",
+                        "parentid": 2,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 9,
+                        "name": "内存映射",
+                        "parentid": 3,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 10,
+                        "name": "物理内存管理",
+                        "parentid": 3,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 11,
+                        "name": "虚拟内存管理",
+                        "parentid": 3,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 12,
+                        "name": "逻辑文件系统",
+                        "parentid": 4,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 13,
+                        "name": "虚拟文件系统",
+                        "parentid": 4,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 14,
+                        "name": "其他文件系统",
+                        "parentid": 4,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 15,
+                        "name": "访问控制部分",
+                        "parentid": 6,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 16,
+                        "name":"多媒体设备",
+                        "parentid": 7,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 17,
+                        "name": "通用设备管理",
+                        "parentid": 7,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 18,
+                        "name": "通用输入输出",
+                        "parentid": 7,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 19,
+                        "name": "虚拟化",
+                        "parentid": 7,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 20,
+                        "name": "总线设备",
+                        "parentid": 7,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 21,
+                        "name": "LSM",
+                        "parentid": 6,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 22,
+                        "name": "安全计算",
+                        "parentid": 6,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 23,
+                        "name": "安全审计",
+                        "parentid": 6,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 24,
+                        "name": "可信路径",
+                        "parentid": 6,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 25,
+                        "name": "密码学",
+                        "parentid": 6,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 88,
+                        "name": "include",
+                        "parentid": 2,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 89,
+                        "name": "init",
+                        "parentid": 2,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 90,
+                        "name": "module",
+                        "parentid": 2,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 91,
+                        "name": "time",
+                        "parentid": 2,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 92,
+                        "name": "电源管理统计",
+                        "parentid": 2,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 93,
+                        "name": "其他",
+                        "parentid": 2,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 88,
+                        "name": "include",
+                        "parentid": 2,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 89,
+                        "name": "init",
+                        "parentid": 2,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 90,
+                        "name": "module",
+                        "parentid": 2,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 91,
+                        "name": "time",
+                        "parentid": 2,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 92,
+                        "name": "电源管理统计",
+                        "parentid": 2,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 93,
+                        "name": "其他",
+                        "parentid": 2,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 67,
+                        "name": "网络接口层",
+                        "parentid": 5,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 68,
+                        "name": "网络设备驱动层",
+                        "parentid": 5,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 69,
+                        "name": "网络协议层",
+                        "parentid": 5,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 70,
+                        "name": "系统调用接口层",
+                        "parentid": 5,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 71,
+                        "name": "协议无关接口层",
+                        "parentid": 5,
+                        "type": 0,
+                        "level": 0
+                    }
+                ],"relations": [
+                    {
+                        "id": 1,
+                        "from": 92,
+                        "to": 101
+                    },
+                    {
+                        "id": 2,
+                        "from": 92,
+                        "to": 103
+                    },
+                    {
+                        "id": 3,
+                        "from": 13,
+                        "to": 101
+                    },
+                    {
+                        "id": 4,
+                        "from": 13,
+                        "to": 103
+                    },
+                    {
+                        "id": 5,
+                        "from": 51,
+                        "to": 105
+                    },
+                    {
+                        "id": 6,
+                        "from": 92,
+                        "to": 49
+                    },
+                    {
+                        "id": 7,
+                        "from": 72,
+                        "to": 13
+                    },
+                    {
+                        "id": 8,
+                        "from": 74,
+                        "to": 13
+                    },
+                    {
+                        "id": 9,
+                        "from": 72,
+                        "to": 9
+                    },
+                    {
+                        "id": 10,
+                        "from": 72,
+                        "to": 11
+                    },
+                    {
+                        "id": 11,
+                        "from": 72,
+                        "to": 37
+                    },
+                    {
+                        "id": 12,
+                        "from": 15,
+                        "to": 37
+                    },
+                    {
+                        "id": 13,
+                        "from": 25,
+                        "to": 103
+                    },
+                    {
+                        "id": 14,
+                        "from": 68,
+                        "to": 17
+                    },
+                    {
+                        "id": 15,
+                        "from": 70,
+                        "to": 18
+                    }
+                ]
+            },
+            {
+                "level": 2,
+                "modules": [
+                    {
+                        "id": 26,
+                        "name": "进程安全管理",
+                        "parentid": 15,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 27,
+                        "name": "设备安全管理",
+                        "parentid": 15,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 28,
+                        "name": "文件安全系统",
+                        "parentid": 15,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 29,
+                        "name": "账户安全管理",
+                        "parentid": 15,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 30,
+                        "name": "根目录",
+                        "parentid": 3,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 31,
+                        "name": "mmu",
+                        "parentid": 3,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 32,
+                        "name": "内存初始化",
+                        "parentid": 3,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 33,
+                        "name": "内存缓存",
+                        "parentid": 3,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 34,
+                        "name": "页表管理",
+                        "parentid": 3,
+                        "type": 0,
+                        "level": 0
+                    },
+                    {
+                        "id": 35,
+                        "name": "进程内存映射",
+                        "parentid": 9,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 36,
+                        "name": "内核内存映射",
+                        "parentid": 9,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 37,
+                        "name": "文件内存映射",
+                        "parentid": 9,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 38,
+                        "name": "slab、slub和slab分配器",
+                        "parentid": 10,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 39,
+                        "name": "页框管理",
+                        "parentid": 10,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 40,
+                        "name": "页交换和页回收",
+                        "parentid": 11,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 41,
+                        "name": "缺页中断",
+                        "parentid": 11,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 42,
+                        "name": "bluetooth",
+                        "parentid": 16,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 43,
+                        "name": "frame",
+                        "parentid": 16,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 44,
+                        "name": "macintosh",
+                        "parentid": 16,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 45,
+                        "name": "media",
+                        "parentid": 16,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 46,
+                        "name": "sound",
+                        "parentid": 16,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 47,
+                        "name": "dma",
+                        "parentid": 17,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 48,
+                        "name": "pnp",
+                        "parentid": 17,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 49,
+                        "name": "char device",
+                        "parentid": 17,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 50,
+                        "name": "block",
+                        "parentid": 17,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 51,
+                        "name": "hid",
+                        "parentid": 18,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 52,
+                        "name": "input",
+                        "parentid": 18,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 53,
+                        "name": "tty",
+                        "parentid": 18,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 54,
+                        "name": "virtio",
+                        "parentid": 18,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 55,
+                        "name": "kvm",
+                        "parentid": 19,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 56,
+                        "name": "xen",
+                        "parentid": 19,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 57,
+                        "name": "ata",
+                        "parentid": 20,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 58,
+                        "name": "gpio",
+                        "parentid": 20,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 59,
+                        "name": "i2c",
+                        "parentid": 20,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 60,
+                        "name": "ide",
+                        "parentid": 20,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 61,
+                        "name": "iio",
+                        "parentid": 20,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 62,
+                        "name": "pci",
+                        "parentid": 20,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 63,
+                        "name": "platform",
+                        "parentid": 20,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 64,
+                        "name": "scsi",
+                        "parentid": 20,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 65,
+                        "name": "spi",
+                        "parentid": 20,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 66,
+                        "name": "usb",
+                        "parentid": 20,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 72,
+                        "name": "ext4",
+                        "parentid": 12,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 73,
+                        "name": "btrfs",
+                        "parentid": 12,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 74,
+                        "name": "sysfs",
+                        "parentid": 12,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 75,
+                        "name": "vfs",
+                        "parentid": 13,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 76,
+                        "name": "p9",
+                        "parentid": 14,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 77,
+                        "name": "ceph",
+                        "parentid": 14,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 78,
+                        "name": "dlm",
+                        "parentid": 14,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 79,
+                        "name": "jbd",
+                        "parentid": 14,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 80,
+                        "name": "jbd2",
+                        "parentid": 14,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 81,
+                        "name": "lockd",
+                        "parentid": 14,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 82,
+                        "name": "logfs",
+                        "parentid": 14,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 83,
+                        "name": "proc",
+                        "parentid": 14,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 84,
+                        "name": "pstore",
+                        "parentid": 14,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 85,
+                        "name": "qnx4",
+                        "parentid": 14,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 86,
+                        "name": "qnx6",
+                        "parentid": 14,
+                        "type": 0,
+                        "level": 1
+                    },
+                    {
+                        "id": 87,
+                        "name": "quota",
+                        "parentid": 14,
+                        "type": 0,
+                        "level": 1
+                    }
+                ],"relations":[]
+            }
+        ]
+    }
+}

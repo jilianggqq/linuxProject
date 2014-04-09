@@ -1,0 +1,9 @@
+{"modules":
+[{"id":-408,"name":"SOC_AT91SAM9263","logicrelation":"SOC_AT91SAM9","type":1},
+{"id":-409,"name":"ere","LogicRelation":"HAVE_FB_ATMEL","type":0},{"id":-4081,"name":"res","logicrelation":"SOC_AT91SAM9","type":1},
+{"id":-4092,"name":"sf","LogicRelation":"HAVE_FB_ATMEL","type":0},{"id":-4082,"name":"rdgff","logicrelation":"SOC_AT91SAM9","type":1},
+{"id":-4093,"name":"sdfa","LogicRelation":"HAVE_FB_ATMEL","type":0},{"id":-4083,"name":"qsd","logicrelation":"SOC_AT91SAM9","type":1},
+{"id":-4094,"name":"sfsd","LogicRelation":"HAVE_FB_ATMEL","type":0},{"id":-4084,"name":"hrt","logicrelation":"SOC_AT91SAM9","type":1},
+{"id":-4095,"name":"sg","LogicRelation":"HAVE_FB_ATMEL","type":0}],
+"relations":[{"from":-408,"logicrelation":"NULL","to":"101"},
+{"from":-409,"logicrelation":"KPROBES && HAVE_KRETPROBES","to":"101"}]}
