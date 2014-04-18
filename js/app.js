@@ -255,7 +255,7 @@ function getLXRFromTsinghua(paper, TsinghuaType) {
 		}
 	});
 	if (count <= 2 && count > 0) {
-		window.open("../kernel/lxrForward.php?fromType=" + fromType + "&fromId=" + fromID + "&toType=" + toType + "&toId=" + toID + "&arch=" + current_arch + "&tsinghuaType=" + TsinghuaType);
+		window.open("kernel/lxrForward.php?fromType=" + fromType + "&fromId=" + fromID + "&toType=" + toType + "&toId=" + toID + "&arch=" + current_arch + "&tsinghuaType=" + TsinghuaType);
 	}
 }
 
@@ -732,7 +732,7 @@ function showSelectDialog(obj) {
 				refreshSVGBox(mapPaper, $("svg")[0]);
 			} else if (openId == "7") {
 				alert("将要跳转中科院文档分析");
-				window.open("../kernel/analysis.php?type=" + obj.data("type") + "&id=" + obj.id.slice(4) + "&arch=" + current_arch);
+				window.open("kernel/analysis.php?type=" + obj.data("type") + "&id=" + obj.id.slice(4) + "&arch=" + current_arch);
 			} else {}
 		},
 		open : function (event, ui) {
@@ -770,7 +770,7 @@ function showDialog(obj, type) {
 				if (fortype == -1) {
 					obj.attr("stroke-width", obj.attr("stroke-width") - 5);
 				} else if (fortype == "6") {
-					window.open("../kernel/annourl.php?type=" + obj.data("type") + "&id=" + obj.id.slice(4) + "&arch=" + current_arch);
+					window.open("kernel/annourl.php?type=" + obj.data("type") + "&id=" + obj.id.slice(4) + "&arch=" + current_arch);
 				} else {
 					addRegion(obj, fortype);
 				}
@@ -801,7 +801,7 @@ function showDialog(obj, type) {
 				if (fortype == -1) {
 					obj.attr("stroke-width", obj.attr("stroke-width") - 5);
 				} else if (fortype == "6") {
-					window.open("../kernel/annourl.php?type=" + obj.data("type") + "&id=" + obj.id.slice(4) + "&arch=" + current_arch);
+					window.open("kernel/annourl.php?type=" + obj.data("type") + "&id=" + obj.id.slice(4) + "&arch=" + current_arch);
 				} else {
 					addRegion(obj, fortype);
 				}
@@ -840,7 +840,7 @@ function showDialog3(obj, type) {
 				if (fortype == -1) {
 					obj.attr("stroke-width", obj.attr("stroke-width") - 5);
 				} else if (fortype == "6") {
-					window.open("../kernel/annourl.php?type=" + obj.data("type") + "&id=" + obj.id.slice(4) + "&arch=" + current_arch);
+					window.open("kernel/annourl.php?type=" + obj.data("type") + "&id=" + obj.id.slice(4) + "&arch=" + current_arch);
 				} else {
 					addRegion(obj, fortype);
 				}
@@ -874,14 +874,16 @@ function moveRegion(ele) {
 	}
 	ele.data("regionId", "");
 }
-/**
- * 将json对象中的图形元素渲染至svg中
- *可以分为两大部分，1、module的图形渲染，2、关联关系的图形渲染。其中1的渲染分为水平module和 垂直module的渲染
- *注:如果数据量出现过大，并造成脚本相应促使页面卡死的情况，请使用setTimeout将这这几部分拆分进行渲染
- */
 var modulesMap = {};
 var rootModulesMap = {};
 var relationsMap = {};
+
+/**
+ * 将json对象中的图形元素渲染至svg中
+ * 可以分为两大部分，1、module的图形渲染，
+ * 2、关联关系的图形渲染。其中1的渲染分为水平module和 垂直module的渲染
+ * 注:如果数据量出现过大，并造成脚本相应促使页面卡死的情况，请使用setTimeout将这这几部分拆分进行渲染
+ */
 function paint(paper, jo) {
 	var layers = jo.map.layers;
 	for (var i = 0; i < layers.length; i++) {
@@ -922,8 +924,9 @@ function paint(paper, jo) {
 
 	refreshSVGBox(paper, $("svg")[0]);
 }
+
 /**
-*初始化主页上的module，当中用到的一些常量数值要与index页面中的一一对应
+* 初始化主页上的module，当中用到的一些常量数值要与index页面中的一一对应
 */
 function initPaper(paper, rootModulesMap, modulesMap, direction) {
 	if (direction == "horizontal") {

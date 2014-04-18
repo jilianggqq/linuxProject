@@ -1,54 +1,11 @@
-var GET_MAP_URL = 'map711.json';
-
-/**
- * 绘制顶层模块
- */
-function drawTopModules(paper) {
-	//进程管理
-	var processing = new module("0_1", "进程", "-1", 0, "#", 0);
-	processing.setSize(10, regionY, 180, paddingHeight);
-	//系统运行
-	var system = new module("0_2", "系统管理", "-1", 0, "#", 0);
-	system.setSize(210, regionY, 180, paddingHeight);
-
-	//内存管理
-	var memory = new module("0_3", "内存", "-1", 0, "#", 0);
-	memory.setSize(410, regionY, 180, paddingHeight);
-
-	//文件系统
-	var storage = new module("0_4", "文件系统", "-1", 0, "#", 0);
-	storage.setSize(610, regionY, 180, paddingHeight);
-
-	//网络协议
-	var networking = new module("0_5", "网络", "-1", 0, "#", 0);
-	networking.setSize(810, regionY, 180, paddingHeight);
-
-	//内核安全
-	var security = new module("0_6", "安全", "-1", 0, "#", 0);
-	security.setSize(1010, regionY, 180, paddingHeight);
-
-	//设备驱动
-	var electronics = new module("0_7", "设备驱动", "-1", 0, "#", 0, "horizontal");
-	electronics.setSize(10, 10, paddingHeight + 2, 250);
-
-	//虚拟化
-	var virtualization = new module("0_8", "虚拟化", "-1", 0, "#", 0);
-	virtualization.setSize(10, 20, paddingHeight + 2, 250);
-
-	drawModule(paper, processing);
-	drawModule(paper, system);
-	drawModule(paper, memory);
-	drawModule(paper, storage);
-	drawModule(paper, networking);
-	drawModule(paper, security);
-	drawModule(paper, electronics);
-	drawModule(paper, virtualization);
-}
+var GET_MAP_URL = 'config/map711.json';
 
 /**
  * 页面加载完毕后的初始化
  */
 function initialize(evt) {
+	console.log("call page_init initialize...");
+
 	/*
 	 * 全局变量设置，设置完成之后不能再修改
 	 */
@@ -69,11 +26,10 @@ function initialize(evt) {
 		"time": (new Date()).getTime()
 	}, function(data) {
 		autoLayout(evt);
-		initTree(GET_MAP_URL);
-		//drawTopModules(mapPaper);
+
+		// 这个功能暂时取消
+		// initTree(GET_MAP_URL);
 		paint(mapPaper, data);
-
-
 
 		window.addEventListener('resize', autoLayout, false);
 		window.addEventListener('keydown', processKeyPress, true); // OK to let the keydown event bubble.
@@ -143,7 +99,7 @@ function initialize(evt) {
 				primary: "ui-icon-transferthick-e-w"
 			}
 		}).click(function() {
-			window.open("./sequence/index.html", "", "");
+			window.open("sequence/index.html", "", "");
 		});
 
 		$('#use_hint').button({

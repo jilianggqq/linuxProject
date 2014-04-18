@@ -274,8 +274,6 @@ region.prototype.init = function(){
 			});	
 		}		
 		
-//		url = '../kernel/file.php?jsoncallback=?';
-		
 	}else if(that.type==types[3]){// 函数
 //		url='clickfunctiontest.json';
 		this.pid = this.pid.slice(2); 
