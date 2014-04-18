@@ -4,7 +4,6 @@
 
 	// 添加调试的log信息
 	include("log.inc");
-	$logs = new Logs("Logs");
 
 	set_time_limit(0);
 	include("config.php");
@@ -16,7 +15,6 @@
 	//else echo "link success!\n";
 	$currentArch = $_GET['arch'];
 
-	$logs->setLog($currentArch, "currentArch");
 	if ($currentArch == "x86"){
 	
 		mysql_select_db($x86_db , $link);
@@ -29,7 +27,7 @@
 
 	function mutualByVirDirID($link){
 
-		$logs = new Logs("Logs");
+		$logs = new Logs("../debugs/logs");
 		
 		$callback = $_GET['jsoncallback'];	
 		$VirDirID = $_GET["VirDirID"];		//´ÓÇ°Ì¨È¡Öµ,½Ó¿ÚÊÇVirDirID
@@ -59,6 +57,8 @@
 			array_push($moduArray,$mdtmpArray);
 		}
 
+		$logs->setLog($mdtmpArray, "mdtmpArray");
+
 		//moduleralation
 		$q2 = "SELECT modulerelation.ModuleId, modulerelation.LogicRelation, modulerelation.RelationType
 			FROM  virtualpathtomodules, modulerelation, module
@@ -66,6 +66,7 @@
 			and virtualpathtomodules.moduleID = module.Id
 			and module.Id = modulerelation.ModuleId";
 
+		$logs->setLog($q2, "q2");
 		$rs2 = mysql_query($q2, $link);
 		$mdrlArray = array(); 	//moduleRelationArrayµÄ¼òÐ´
 
@@ -82,10 +83,10 @@
 				 preg_replace('(\(|\))', '', 
 				  preg_replace('( )', '', $string))));	//½«¡®&&¡¯¡®||¡¯Ìæ»»³É¡®£¬¡¯£¬É¾³ý¡®!¡¯
 			
-
 			if(strpos($str,",")){
-				
-			       	$rlArray = array();	
+				// $logs->setLog($str, "withcomma");
+
+			    $rlArray = array();	
 				$rlArray = explode(",", $str);	//·Ö¸î´¦ÀíºóµÄlogicrelation£¬½«modulename´æÈëÊý×é
 				$num = count($rlArray);
 				
@@ -115,35 +116,36 @@
 					
 				}	
 			}else{
+
+				// $logs->setLog($str, "withoutcomma");
+				// 根据每一个查出来的LogicRelation去module表中反查，
+				// 找出当前module和ralation modue的对应关系
 				$q4 = "SELECT Id FROM module WHERE ModuleName = '$str'";
 				$rs_tmp = mysql_query($q4, $link);
+				
 				if(!$rs_tmp){
 					die("rs_tmp Valid result!");
 				}
-				//if($str){ 		
-					while($tmp = mysql_fetch_row($rs_tmp)){
-						if($row[2] == 2){
-							//the module depenance cause by menuconfig+if which relationtype=2
-							$rltmpArray["from"] = "1_" . $tmp[0];
-							$rltmpArray["logicrelation"] = NULL;
-							$rltmpArray["to"] = "1_" . $row[0];
-							$rltmpArray["type"] = $row[2];
-						}
-						else{
-							$rltmpArray["from"] = "1_" . $row[0];
-							$rltmpArray["logicrelation"] = NULL;
-							$rltmpArray["to"] = "1_" . $tmp[0];
-							$rltmpArray["type"] = $row[2];
-						}
-						array_push($mdrlArray,$rltmpArray);
+				while($tmp = mysql_fetch_row($rs_tmp)){
+					if($row[2] == 2){
+						//the module depenance cause by menuconfig+if which relationtype=2
+						$rltmpArray["from"] = "1_" . $tmp[0];
+						$rltmpArray["logicrelation"] = NULL;
+						$rltmpArray["to"] = "1_" . $row[0];
+						$rltmpArray["type"] = $row[2];
 					}
-					
-				//}
-				
-							
+					else{
+						$rltmpArray["from"] = "1_" . $row[0];
+						$rltmpArray["logicrelation"] = NULL;
+						$rltmpArray["to"] = "1_" . $tmp[0];
+						$rltmpArray["type"] = $row[2];
+					}
+					array_push($mdrlArray,$rltmpArray);
+				}
 			}
 					
 		}
+		// $logs->setLog($mdrlArray, "mdrlArray");
 		mysql_free_result($rs2);
 		mysql_free_result($rs_tmp);
 		//È¡µÃ´ÓÆäËûmoduleµ½VirDirIDµÄÄ£¿é¹ØÏµ  reverse to find the relationship of modules
@@ -152,6 +154,7 @@
 			WHERE virtualpathtomodules.virtualDirId = '$VirDirID'
 			and virtualpathtomodules.moduleID = module.Id";
 
+		$logs->setLog($q5, "q5");
 		$rs5 = mysql_query($q5, $link);				//@@use rs1 is enough????
 		$torltmpArray = array();
 		$tomdtmpArray1 = array();
@@ -166,6 +169,8 @@
 			$q6 = "SELECT modulerelation.ModuleId, modulerelation.RelationType
 				FROM modulerelation 
 				WHERE LogicRelation LIKE '%$string%'";
+
+			$logs->setLog($q6, "q6");
 			$rs6 = mysql_query($q6, $link);
 			if(!$rs6){
 				die("Valid result!");
@@ -177,6 +182,7 @@
 				array_push($array,$row1);
 			}					
 			//$array = array_unique($array);//È¡³öÖØ¸´
+			// $logs->setLog($array, "array");
 			
 			foreach($array as $arrtmp){          
 				if($arrtmp[1] == 2){
@@ -193,6 +199,9 @@
 				array_push($reverseArray,$torltmpArray);
 			}
 		}
+
+		// $logs->setLog($reverseArray, "reverseArray");
+
 		mysql_free_result($rs1);
 		mysql_free_result($rs5);
 		mysql_free_result($rs6);
@@ -203,8 +212,11 @@
 			foreach ($reverseArray as $k=>$v){
 				$v = join(",",$v);
 				$temp[$k] = $v;
+
 			}
+			// $logs->setLog($temp, "temp");
 			$temp = array_unique($temp);
+			// $logs->setLog($temp, "temp unique");
 			foreach ($temp as $k => $v){
 			    $array=explode(",",$v);
 			    $reverseTemp[$k]["from"] =$array[0];  
@@ -213,7 +225,10 @@
 			    $reverseTemp[$k]["type"] = $array[3];
 			}
 			sort($reverseTemp);
+			// $logs->setLog($reverseTemp, "reverseTemp");
+
 			$i_max = count($reverseTemp);
+			$logs->setLog($i_max,"i_max");
 			for($i = 0 ;$i < $i_max;$i++){
 				$jsonArray["relations"][] = $reverseTemp[$i]; //add the reverse data to the JSON
 				$vid  = $reverseTemp[$i]["from"];	
@@ -222,6 +237,7 @@
 					FROM virtualpathtomodules
 					WHERE virtualpathtomodules.moduleID = $vid
 					AND virtualpathtomodules.virtualDirId != $VirDirID"; 
+				// $logs->setLog($reverseq, "reverseq");
 				$rs_tmp = mysql_query($reverseq, $link);
 				if(!$rs_tmp){
 					continue;
@@ -312,7 +328,7 @@
 			$i_max = count($temp3);
 			for($i = 0 ;$i < $i_max;$i++){
 				if($temp3[$i]){
-				$jsonArray["relations"][] = $temp3[$i];
+					$jsonArray["relations"][] = $temp3[$i];
 				}			 
 			}
 		}
@@ -380,6 +396,7 @@
 			}
 		}
 		$jsonArray["modules"] = $moduArray;
+		// $logs->setLog($jsonArray, "jsonArray");
 			
 		echo $callback."(".json_encode($jsonArray).")";			
 	}

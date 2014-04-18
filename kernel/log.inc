@@ -73,13 +73,21 @@ class Logs {
         //传入的数组记录
         $str = $tag."\t".date ( 'm-d H:i:s', time ())."\t";
         if (is_array ( $log )) {
-            foreach ( $log as $k => $v ) {
-                $str .= $k . " : " . $v . "n";
-            }
+            // foreach ( $log as $k => $v ) {
+            //     $str .= $k . " : " . $v . "\n\t";
+            // }
+
+            // $str = substr($str, 0, -1);
+            $str .= json_encode($log)."\n";
         } else {
             $str .= $log . "\n";
         }
-        
+       
+		//去除^M的问题
+		$trans = array("\x0D" => "");
+		$str = strtr($str,$trans);
+
+        $str .= "\n";
         //写日志
         if (! fwrite ( $this->_filehandle, $str )) { //写日志失败
             die ( "写入日志失败" );
