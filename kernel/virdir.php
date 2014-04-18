@@ -1,14 +1,22 @@
 <?php
 	header('Content-type: text/json');
 	error_reporting(E_ALL ^ E_NOTICE);	 //ÏÔÊ¾³ýÈ¥ E_NOTICE Ö®ÍâµÄËùÓÐ´íÎóÐÅÏ¢ 
+
+	// 添加调试的log信息
+	include("log.inc");
+	$logs = new Logs("Logs");
+
 	set_time_limit(0);
 	include("config.php");
 	$link = mysql_connect($db_host,$db_username,$db_password);
 	mysql_query('set names utf8');
 	//Êý¾Ý¿âÊÇ·ñÁ¬½Ó
 	if(!$link) echo "link unsuccess!"; 
+	// echo "test";
 	//else echo "link success!\n";
 	$currentArch = $_GET['arch'];
+
+	$logs->setLog($currentArch, "currentArch");
 	if ($currentArch == "x86"){
 	
 		mysql_select_db($x86_db , $link);
@@ -20,6 +28,8 @@
 
 
 	function mutualByVirDirID($link){
+
+		$logs = new Logs("Logs");
 		
 		$callback = $_GET['jsoncallback'];	
 		$VirDirID = $_GET["VirDirID"];		//´ÓÇ°Ì¨È¡Öµ,½Ó¿ÚÊÇVirDirID
@@ -31,6 +41,7 @@
 			WHERE virtualpathtomodules.virtualDirId = '$VirDirID'
 			and virtualpathtomodules.moduleID = module.Id
 			ORDER BY module.weight DESC";
+		$logs->setLog($q1, "q1");
 		$rs1 = mysql_query($q1, $link);
 		$jsonarray = array();	
 		$moduArray = array();	//moduleArray
@@ -185,47 +196,47 @@
 		mysql_free_result($rs1);
 		mysql_free_result($rs5);
 		mysql_free_result($rs6);
-	$module_to_high_relation = array();
+		$module_to_high_relation = array();
 
-	if(count($reverseArray)!=0){
-		//deal with reverse relation (the foreign virtuldir to the config of current virtuldir) 
-		foreach ($reverseArray as $k=>$v){
-			$v = join(",",$v);
-			$temp[$k] = $v;
+		if(count($reverseArray)!=0){
+			//deal with reverse relation (the foreign virtuldir to the config of current virtuldir) 
+			foreach ($reverseArray as $k=>$v){
+				$v = join(",",$v);
+				$temp[$k] = $v;
+			}
+			$temp = array_unique($temp);
+			foreach ($temp as $k => $v){
+			    $array=explode(",",$v);
+			    $reverseTemp[$k]["from"] =$array[0];  
+			    $reverseTemp[$k]["logicrelation"] =$array[1];
+			    $reverseTemp[$k]["to"] =$array[2];
+			    $reverseTemp[$k]["type"] = $array[3];
+			}
+			sort($reverseTemp);
+			$i_max = count($reverseTemp);
+			for($i = 0 ;$i < $i_max;$i++){
+				$jsonArray["relations"][] = $reverseTemp[$i]; //add the reverse data to the JSON
+				$vid  = $reverseTemp[$i]["from"];	
+				$vid = substr($vid,2,strlen($vid));		
+				$reverseq = "SELECT virtualpathtomodules.virtualDirId
+					FROM virtualpathtomodules
+					WHERE virtualpathtomodules.moduleID = $vid
+					AND virtualpathtomodules.virtualDirId != $VirDirID"; 
+				$rs_tmp = mysql_query($reverseq, $link);
+				if(!$rs_tmp){
+					continue;
+				}  
+				while($row = mysql_fetch_row($rs_tmp)){
+					$tmp = array();
+					$tmp ["from"] = "0_" . $row[0];
+					$tmp ["logicrelation"] = NULL;//$reverseTemp[$i]["logicrelation"];
+					$tmp ["to"] = $reverseTemp[$i]["to"];
+					$tmp ["type"] = 3;
+					//$jsonArray["relations"][] = $tmp;
+					array_push($module_to_high_relation, $tmp);
+				}	 
+			}
 		}
-		$temp = array_unique($temp);
-		foreach ($temp as $k => $v){
-		    $array=explode(",",$v);
-		    $reverseTemp[$k]["from"] =$array[0];  
-		    $reverseTemp[$k]["logicrelation"] =$array[1];
-		    $reverseTemp[$k]["to"] =$array[2];
-		    $reverseTemp[$k]["type"] = $array[3];
-		}
-		sort($reverseTemp);
-		$i_max = count($reverseTemp);
-		for($i = 0 ;$i < $i_max;$i++){
-			$jsonArray["relations"][] = $reverseTemp[$i]; //add the reverse data to the JSON
-			$vid  = $reverseTemp[$i]["from"];	
-			$vid = substr($vid,2,strlen($vid));		
-			$reverseq = "SELECT virtualpathtomodules.virtualDirId
-				FROM virtualpathtomodules
-				WHERE virtualpathtomodules.moduleID = $vid
-				AND virtualpathtomodules.virtualDirId != $VirDirID"; 
-			$rs_tmp = mysql_query($reverseq, $link);
-			if(!$rs_tmp){
-				continue;
-			}  
-			while($row = mysql_fetch_row($rs_tmp)){
-				$tmp = array();
-				$tmp ["from"] = "0_" . $row[0];
-				$tmp ["logicrelation"] = NULL;//$reverseTemp[$i]["logicrelation"];
-				$tmp ["to"] = $reverseTemp[$i]["to"];
-				$tmp ["type"] = 3;
-				//$jsonArray["relations"][] = $tmp;
-				array_push($module_to_high_relation, $tmp);
-			}	 
-		}
-	}
 	/*
 	if(count($moduArray)!=0){
 		foreach ($moduArray as $k=>$v){
@@ -247,132 +258,130 @@
 	}*/
 	//$jsonArray["modules"] = $moduArray;
 
-	if(count($mdrlArray)!=0){
-		foreach ($mdrlArray as $k=>$v){
-			$v = join(",",$v);
-			$temp[$k] = $v;
-		}
-		$temp = array_unique($temp);
-		foreach ($temp as $k => $v){
-		    $array=explode(",",$v);
-		    $temp3[$k]["from"] =$array[0];  
-		    $temp3[$k]["logicrelation"] =$array[1];
-		    $temp3[$k]["to"] =$array[2];
-		    $temp3[$k]["type"] = $array[3];
-		}
-		sort($temp3);
-		$i_max = count($temp3);
-		for($i = 0 ;$i < $i_max;$i++){
-			$vid  = $temp3[$i]["to"];			//@@the reverse relation 'to' is the current virtualDirID
-			$vid = substr($vid,2,strlen($vid));
-			$q8 = "SELECT virtualpathtomodules.virtualDirId
-				FROM virtualpathtomodules
-				WHERE virtualpathtomodules.moduleID = $vid
-				AND virtualpathtomodules.virtualDirId != $VirDirID";   //@@virtualpathtomodules.moduleID = $vid???
-			$rs_tmp = mysql_query($q8, $link);
-			if(!$rs_tmp){
-				continue;
-			} 
-			while($row = mysql_fetch_row($rs_tmp)){
-				$tmp = array();
-				$tmp ["from"] = $temp3[$i]["from"];
-				$tmp ["logicrelation"] = NULL;//$temp3[$i]["logicrelation"];
-				$tmp ["to"] = "0_" . $row[0];
-				$tmp ["type"] = 3;
-				//$jsonArray["relations"][] = $tmp;
-				array_push($module_to_high_relation, $tmp);
+		if(count($mdrlArray)!=0){
+			foreach ($mdrlArray as $k=>$v){
+				$v = join(",",$v);
+				$temp[$k] = $v;
 			}
-			$jsonArray["relations"][] = $temp3[$i];			 
+			$temp = array_unique($temp);
+			foreach ($temp as $k => $v){
+			    $array=explode(",",$v);
+			    $temp3[$k]["from"] =$array[0];  
+			    $temp3[$k]["logicrelation"] =$array[1];
+			    $temp3[$k]["to"] =$array[2];
+			    $temp3[$k]["type"] = $array[3];
+			}
+			sort($temp3);
+			$i_max = count($temp3);
+			for($i = 0 ;$i < $i_max;$i++){
+				$vid  = $temp3[$i]["to"];			//@@the reverse relation 'to' is the current virtualDirID
+				$vid = substr($vid,2,strlen($vid));
+				$q8 = "SELECT virtualpathtomodules.virtualDirId
+					FROM virtualpathtomodules
+					WHERE virtualpathtomodules.moduleID = $vid
+					AND virtualpathtomodules.virtualDirId != $VirDirID";   //@@virtualpathtomodules.moduleID = $vid???
+				$rs_tmp = mysql_query($q8, $link);
+				if(!$rs_tmp){
+					continue;
+				} 
+				while($row = mysql_fetch_row($rs_tmp)){
+					$tmp = array();
+					$tmp ["from"] = $temp3[$i]["from"];
+					$tmp ["logicrelation"] = NULL;//$temp3[$i]["logicrelation"];
+					$tmp ["to"] = "0_" . $row[0];
+					$tmp ["type"] = 3;
+					//$jsonArray["relations"][] = $tmp;
+					array_push($module_to_high_relation, $tmp);
+				}
+				$jsonArray["relations"][] = $temp3[$i];			 
+			}
 		}
-	}
-	if(count($module_to_high_relation)!=0){
-		foreach ($module_to_high_relation as $k=>$v){
-			$v = join(",",$v);
-			$temp[$k] = $v;
-		}
-		$temp = array_unique($temp);
-		foreach ($temp as $k => $v){
-		    $array=explode(",",$v);
-		    $temp3[$k]["from"] =$array[0];  
-		    $temp3[$k]["logicrelation"] =$array[1];
-		    $temp3[$k]["to"] =$array[2];
-		    $temp3[$k]["type"] = $array[3];
-		}
-		$i_max = count($temp3);
-		for($i = 0 ;$i < $i_max;$i++){
-			if($temp3[$i]){
-			$jsonArray["relations"][] = $temp3[$i];
-			}			 
-		}
-	}
-
-	$module_to_low_relation = array();
-	//deal with 1_ to 2_  and 1_ and 3_
-	$q1 = "SELECT  virtualpathtomodules.moduleID 
-			FROM  virtualpathtomodules, module
-			WHERE virtualpathtomodules.virtualDirId = '$VirDirID'
-			and virtualpathtomodules.moduleID = module.Id";
-	$rs5 = mysql_query($q5, $link);
-	while($row = mysql_fetch_row($rs5)){
-
-		$q2 = "SELECT functioncall.CalleeId, functioninfo.FileNameId
-				FROM functioncall, functioninfo
-				WHERE functioncall.CallerModuleId='$row[0]'
-				AND functioncall.CalleeId = functioninfo.Id";
-		$rs_tmp = mysql_query($q2,$link);
-		while($row_result = mysql_fetch_row($rs_tmp)){
-			$tmp ["from"] = "1_" . $row[0];
-			$tmp ["logicrelation"] = NULL;
-			$tmp ["to"] = "2_" . $row_result[1];
-			$tmp ["type"] = 3;
-			array_push($module_to_low_relation,$tmp);
-			$tmp ["to"] = "3_" . $row_result[0];
-			array_push($module_to_low_relation,$tmp);
-		}
-
-		$q2 = "SELECT functioncall.CallerId, functioninfo.FileNameId
-				FROM functioncall, functioninfo
-				WHERE functioncall.CalleeModuleId='$row[0]'
-				AND functioncall.CallerId = functioninfo.Id";
-		$rs_tmp = mysql_query($q2,$link);
-		while($row_result = mysql_fetch_row($rs_tmp)){
-			$tmp ["from"] = "2_" . $row_result[1];
-			$tmp ["logicrelation"] = NULL;
-			$tmp ["to"] = "1_" . $row[0];
-			$tmp ["type"] = 3;
-			array_push($module_to_low_relation,$tmp);
-			$tmp ["from"] = "3_" . $row_result[0];
-			array_push($module_to_low_relation, $tmp);
+		if(count($module_to_high_relation)!=0){
+			foreach ($module_to_high_relation as $k=>$v){
+				$v = join(",",$v);
+				$temp[$k] = $v;
+			}
+			$temp = array_unique($temp);
+			foreach ($temp as $k => $v){
+			    $array=explode(",",$v);
+			    $temp3[$k]["from"] =$array[0];  
+			    $temp3[$k]["logicrelation"] =$array[1];
+			    $temp3[$k]["to"] =$array[2];
+			    $temp3[$k]["type"] = $array[3];
+			}
+			$i_max = count($temp3);
+			for($i = 0 ;$i < $i_max;$i++){
+				if($temp3[$i]){
+				$jsonArray["relations"][] = $temp3[$i];
+				}			 
+			}
 		}
 
-	}
+		$module_to_low_relation = array();
+		//deal with 1_ to 2_  and 1_ and 3_
+		$q1 = "SELECT  virtualpathtomodules.moduleID 
+				FROM  virtualpathtomodules, module
+				WHERE virtualpathtomodules.virtualDirId = '$VirDirID'
+				and virtualpathtomodules.moduleID = module.Id";
+		$rs5 = mysql_query($q5, $link);
+		while($row = mysql_fetch_row($rs5)){
+
+			$q2 = "SELECT functioncall.CalleeId, functioninfo.FileNameId
+					FROM functioncall, functioninfo
+					WHERE functioncall.CallerModuleId='$row[0]'
+					AND functioncall.CalleeId = functioninfo.Id";
+			$rs_tmp = mysql_query($q2,$link);
+			while($row_result = mysql_fetch_row($rs_tmp)){
+				$tmp ["from"] = "1_" . $row[0];
+				$tmp ["logicrelation"] = NULL;
+				$tmp ["to"] = "2_" . $row_result[1];
+				$tmp ["type"] = 3;
+				array_push($module_to_low_relation,$tmp);
+				$tmp ["to"] = "3_" . $row_result[0];
+				array_push($module_to_low_relation,$tmp);
+			}
+
+			$q2 = "SELECT functioncall.CallerId, functioninfo.FileNameId
+					FROM functioncall, functioninfo
+					WHERE functioncall.CalleeModuleId='$row[0]'
+					AND functioncall.CallerId = functioninfo.Id";
+			$rs_tmp = mysql_query($q2,$link);
+			while($row_result = mysql_fetch_row($rs_tmp)){
+				$tmp ["from"] = "2_" . $row_result[1];
+				$tmp ["logicrelation"] = NULL;
+				$tmp ["to"] = "1_" . $row[0];
+				$tmp ["type"] = 3;
+				array_push($module_to_low_relation,$tmp);
+				$tmp ["from"] = "3_" . $row_result[0];
+				array_push($module_to_low_relation, $tmp);
+			}
+
+		}
 
 
-	if(count($module_to_low_relation)!=0){
-		foreach ($module_to_low_relation as $k=>$v){
-			$v = join(",",$v);
-			$temp[$k] = $v;
+		if(count($module_to_low_relation)!=0){
+			foreach ($module_to_low_relation as $k=>$v){
+				$v = join(",",$v);
+				$temp[$k] = $v;
+			}
+			$temp = array_unique($temp);
+			foreach ($temp as $k => $v){
+			    $array=explode(",",$v);
+			    $temp3[$k]["from"] =$array[0];  
+			    $temp3[$k]["logicrelation"] =$array[1];
+			    $temp3[$k]["to"] =$array[2];
+			    $temp3[$k]["type"] = $array[3];
+			}
+			$i_max = count($temp3);
+			for($i = 0 ;$i < $i_max;$i++){
+				if($temp3[$i]){
+				$jsonArray["relations"][] = $temp3[$i];
+				}			 
+			}
 		}
-		$temp = array_unique($temp);
-		foreach ($temp as $k => $v){
-		    $array=explode(",",$v);
-		    $temp3[$k]["from"] =$array[0];  
-		    $temp3[$k]["logicrelation"] =$array[1];
-		    $temp3[$k]["to"] =$array[2];
-		    $temp3[$k]["type"] = $array[3];
-		}
-		$i_max = count($temp3);
-		for($i = 0 ;$i < $i_max;$i++){
-			if($temp3[$i]){
-			$jsonArray["relations"][] = $temp3[$i];
-			}			 
-		}
-	}
-	$jsonArray["modules"] = $moduArray;
-		
-		echo $callback."(".json_encode($jsonArray).")";
-	    //    	echo json_encode($moduArray);	//Êä³öjson´®
-		
+		$jsonArray["modules"] = $moduArray;
+			
+		echo $callback."(".json_encode($jsonArray).")";			
 	}
 
 	mutualByVirDirID($link);

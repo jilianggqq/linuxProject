@@ -1,2 +1,5 @@
-.tags
-.tags_sorted_by_file
+*.tags
+*.tags_sorted_by_file
+kernel/.tags
+kernel/.tags_sorted_by_file
+*.log

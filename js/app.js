@@ -667,6 +667,7 @@ function selectby(type) {
 }
 
 function openChild(openId) {
+	console.log("openChild openId" + openId);
 	$("#selectOpenId").val(openId);
 	$("#selectDig2").dialog("close");
 }
