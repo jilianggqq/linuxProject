@@ -146,8 +146,10 @@
 					
 		}
 		// $logs->setLog($mdrlArray, "mdrlArray");
-		mysql_free_result($rs2);
-		mysql_free_result($rs_tmp);
+		if(isset($rs2))
+			mysql_free_result($rs2);
+		if(isset($rs_tmp))
+			mysql_free_result($rs_tmp);
 		//È¡µÃ´ÓÆäËûmoduleµ½VirDirIDµÄÄ£¿é¹ØÏµ  reverse to find the relationship of modules
 		$q5 = "SELECT  virtualpathtomodules.moduleID, module.ModuleName 
 			FROM  virtualpathtomodules, module
@@ -202,9 +204,12 @@
 
 		// $logs->setLog($reverseArray, "reverseArray");
 
-		mysql_free_result($rs1);
-		mysql_free_result($rs5);
-		mysql_free_result($rs6);
+		if(isset($rs1))
+			mysql_free_result($rs1);
+		if(isset($rs5))
+			mysql_free_result($rs5);
+		if(isset($rs6))
+			mysql_free_result($rs6);
 		$module_to_high_relation = array();
 
 		if(count($reverseArray)!=0){
