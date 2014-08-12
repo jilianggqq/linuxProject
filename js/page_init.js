@@ -22,13 +22,15 @@ function initialize(evt) {
 		}
 	});
 
+	// 通过请求config/map711.json，初始化所有的虚目录。
+	// 特别注意，所有的虚目录是写死在map711.json中的，而不是写在数据库中的
 	$.getJSON(GET_MAP_URL, {
 		"time": (new Date()).getTime()
 	}, function(data) {
 		autoLayout(evt);
 
 		// 这个功能暂时取消
-		// initTree(GET_MAP_URL);
+		//在initialize函数中调用paint函数，将map711.json中的数据画在界面上
 		paint(mapPaper, data);
 
 		window.addEventListener('resize', autoLayout, false);
