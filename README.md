@@ -3,7 +3,7 @@ linuxProject
 
 analysis for linux kernal 3.5.4
 
-## 6月2日 - 2014年6月25日修改
+## 6月2日 - 2014年6月25日修改 add wind
 1. 注释page_init.js中的关键函数
 2. 修改region.js，使代码风格更佳漂亮
 3. 在所有的js中，有一个潜在的威胁，就是==的使用，应该用===来代替。同样的，
